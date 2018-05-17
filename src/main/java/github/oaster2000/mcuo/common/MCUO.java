@@ -37,23 +37,17 @@ public class MCUO {
 		MinecraftForge.EVENT_BUS.register(new KeyHandler());
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.modid);
         
-		NETWORK.registerMessage(MCUOSyncMessageHandler.class, MCUOSyncMessage.class, 0, Side.SERVER);
-        NETWORK.registerMessage(MCUOSyncMessageHandler.class, MCUOSyncMessage.class, 1, Side.CLIENT);
+        NETWORK.registerMessage(MCUOSyncMessageHandler.class, MCUOSyncMessage.class, 0, Side.CLIENT);
         
-        NETWORK.registerMessage(MCUOServerSyncMessageHandler.class, MCUOServerSyncMessage.class, 2, Side.SERVER);
-        NETWORK.registerMessage(MCUOServerSyncMessageHandler.class, MCUOServerSyncMessage.class, 3, Side.CLIENT);
+        NETWORK.registerMessage(MCUOServerSyncMessageHandler.class, MCUOServerSyncMessage.class, 1, Side.SERVER);
         
-        NETWORK.registerMessage(TorsoSyncMessageHandler.class, TorsoSyncMessage.class, 4, Side.SERVER);
-        NETWORK.registerMessage(TorsoSyncMessageHandler.class, TorsoSyncMessage.class, 5, Side.CLIENT);
+        NETWORK.registerMessage(TorsoSyncMessageHandler.class, TorsoSyncMessage.class, 2, Side.CLIENT);
         
-        NETWORK.registerMessage(TorsoServerSyncMessageHandler.class, TorsoServerSyncMessage.class, 6, Side.SERVER);
-        NETWORK.registerMessage(TorsoServerSyncMessageHandler.class, TorsoServerSyncMessage.class, 7, Side.CLIENT);
+        NETWORK.registerMessage(TorsoServerSyncMessageHandler.class, TorsoServerSyncMessage.class, 3, Side.SERVER);
         
-        NETWORK.registerMessage(CapeSyncMessageHandler.class, CapeSyncMessage.class, 8, Side.SERVER);
-        NETWORK.registerMessage(CapeSyncMessageHandler.class, CapeSyncMessage.class, 9, Side.CLIENT);
+        NETWORK.registerMessage(CapeSyncMessageHandler.class, CapeSyncMessage.class, 4, Side.CLIENT);
         
-        NETWORK.registerMessage(CapeServerSyncMessageHandler.class, CapeServerSyncMessage.class, 10, Side.SERVER);
-        NETWORK.registerMessage(CapeServerSyncMessageHandler.class, CapeServerSyncMessage.class, 11, Side.CLIENT);
+        NETWORK.registerMessage(CapeServerSyncMessageHandler.class, CapeServerSyncMessage.class, 5, Side.SERVER);
     }
 
 	@EventHandler

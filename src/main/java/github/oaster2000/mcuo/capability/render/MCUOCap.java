@@ -74,7 +74,7 @@ public class MCUOCap implements IMCUO
 	
 	@Override
 	public void setCapeColorG(float g) {
-		torsoG = g;
+		capeG = g;
 	}
 	
 	@Override
@@ -96,7 +96,6 @@ public class MCUOCap implements IMCUO
 	public float getCapeColorB() {
 		return capeB;
 	}
-	
 	
 	@Override
 	public void setTorsoColorR(float r) {
@@ -166,9 +165,9 @@ public class MCUOCap implements IMCUO
     @Override
     public void dataChanged(EntityPlayerMP player)
     {
-    	MCUO.NETWORK.sendToAll(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter));
-    	MCUO.NETWORK.sendToAll(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter));
-    	MCUO.NETWORK.sendToAll(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter));
+    	MCUO.NETWORK.sendTo(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter), player);
+    	MCUO.NETWORK.sendTo(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter), player);
+    	MCUO.NETWORK.sendTo(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter), player);
     }
 
     @Override

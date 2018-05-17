@@ -23,19 +23,6 @@ public class CapabilityEventHandler {
 		event.addCapability(mcuo.getKey(), mcuo.getProvider());
 		event.addCapability(ls.getKey(), ls.getProvider());
 	}
-	
-	@SubscribeEvent
-	public void onLog(PlayerLoggedInEvent event) {
-		if(event.player instanceof EntityPlayerMP)
-        {
-            IMCUO mcuo = event.player.getCapability(CapabilityHandler.MCUO, null);
-            ILevelSystem ls = event.player.getCapability(CapabilityHandler.LVL_SYS, null);
-            if(mcuo != null)
-            	mcuo.dataChanged((EntityPlayerMP) event.player);
-            if(ls != null)
-            	ls.dataChanged((EntityPlayerMP) event.player);
-        }
-	}
 
 	@SubscribeEvent
 	public void onDeath(PlayerEvent.Clone event) {

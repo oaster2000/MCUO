@@ -25,7 +25,7 @@ public class TorsoSyncMessageHandler implements IMessageHandler<TorsoSyncMessage
 					capability.setTorsoColorG(message.torsoG);
 					capability.setTorsoColorB(message.torsoB);
 					capability.setTorsoType(message.torsoType);
-
+					
 					capability.setCreatedCharacter(message.createdChar);
 				}
 			}
