@@ -14,12 +14,12 @@ public class TorsoServerSyncMessage implements IMessage {
 	public TorsoServerSyncMessage() {
 	}
 
-	private float torsoR;
-	private float torsoG;
-	private float torsoB;
-	private int torsoType;
+	float torsoR;
+	float torsoG;
+	float torsoB;
+	int torsoType;
 
-	private boolean createdChar;
+	boolean createdChar;
 
 	public TorsoServerSyncMessage(float r, float g, float b, int type, boolean created) {
 		this.torsoR = r;
@@ -45,26 +45,5 @@ public class TorsoServerSyncMessage implements IMessage {
 		buf.writeFloat(torsoG);
 		buf.writeFloat(torsoB);
 		buf.writeBoolean(createdChar);
-	}
-
-	public static class Handler implements IMessageHandler<TorsoServerSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(TorsoServerSyncMessage message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-		    IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
-		    player.getServerWorld().addScheduledTask(() -> {
-		    	if (capability != null) {
-					capability.setTorsoColorR(message.torsoR);
-					capability.setTorsoColorG(message.torsoG);
-					capability.setTorsoColorB(message.torsoB);
-					capability.setTorsoType(message.torsoType);
-					
-					capability.setCreatedCharacter(message.createdChar);
-		    	}
-		     });
-
-	return null;
-}
 	}
 }

@@ -14,12 +14,12 @@ public class TorsoSyncMessage implements IMessage {
 	public TorsoSyncMessage() {
 	}
 	
-	private float torsoR;
-	private float torsoG;
-	private float torsoB;
-	private int torsoType;
+	float torsoR;
+	float torsoG;
+	float torsoB;
+	int torsoType;
 
-	private boolean createdChar;
+	boolean createdChar;
 
 	public TorsoSyncMessage(float r, float g, float b, int type, boolean created) {
 		this.torsoR = r;
@@ -45,32 +45,5 @@ public class TorsoSyncMessage implements IMessage {
 		buf.writeFloat(torsoG);
 		buf.writeFloat(torsoB);
 		buf.writeBoolean(createdChar);
-	}
-
-	public static class Handler implements IMessageHandler<TorsoSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(TorsoSyncMessage message, MessageContext ctx) {
-						IThreadListener mainThread = Minecraft.getMinecraft();
-			mainThread.addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayerSP player = mc.player;
-					IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
-					if (capability != null) {
-						capability.setTorsoColorR(message.torsoR);
-						capability.setTorsoColorG(message.torsoG);
-						capability.setTorsoColorB(message.torsoB);
-						capability.setTorsoType(message.torsoType);
-						
-						capability.setCreatedCharacter(message.createdChar);
-					}
-				}
-
-			});
-
-			return null;
-		}
 	}
 }

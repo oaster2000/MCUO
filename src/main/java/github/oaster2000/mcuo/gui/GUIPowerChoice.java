@@ -2,7 +2,6 @@ package github.oaster2000.mcuo.gui;
 
 import java.io.IOException;
 
-import github.oaster2000.mcuo.utils.SyncUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
@@ -35,10 +34,8 @@ public class GUIPowerChoice extends GuiChoiceBase {
 			Minecraft.getMinecraft().displayGuiScreen(null);
 			return;
 		case 2:
-			SyncUtils.sync(Minecraft.getMinecraft().player);
 			return;
 		case 3:
-			SyncUtils.sync(Minecraft.getMinecraft().player);
 			return;
 		}
 		try {

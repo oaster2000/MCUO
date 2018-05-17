@@ -22,9 +22,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class PlayerRenderHandler {
 	
-	public static int torso = 0;
-	public static int cape = 0;
-	
 	static EntityPlayer player = Minecraft.getMinecraft().player;
 	static IMCUO mcuo = player.getCapability(CapabilityHandler.MCUO, null);
 
@@ -71,7 +68,7 @@ public class PlayerRenderHandler {
 				renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 			}
 			
-			if(torso == 1) {
+			if(mcuo.getTorsoType() == 1) {
 				ModelBiped model = new ModelTorso1(0.05f);
 				model.isSneak = post.getEntityPlayer().isSneaking();
 				final Render renderCustomModel = new RenderModelForPlayer(post.getRenderer().getRenderManager(), model,
@@ -79,7 +76,7 @@ public class PlayerRenderHandler {
 				renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 			}
 			
-			if (cape == 1) {
+			if (mcuo.getCapeType() == 1) {
 				ModelBiped model = new ModelCape1(0.05f);
 				model.isSneak = post.getEntityPlayer().isSneaking();
 				final Render renderCustomModel = new RenderModelForPlayer(post.getRenderer().getRenderManager(), model,
@@ -87,7 +84,7 @@ public class PlayerRenderHandler {
 				renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 			}
 			
-			if (cape == 2) {
+			if (mcuo.getCapeType() == 2) {
 				ModelBiped model = new ModelCape1(0.05f);
 				model.isSneak = post.getEntityPlayer().isSneaking();
 				final Render renderCustomModel = new RenderModelForPlayer(post.getRenderer().getRenderManager(), model,

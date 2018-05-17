@@ -14,12 +14,12 @@ public class MCUOSyncMessage implements IMessage {
 	public MCUOSyncMessage() {
 	}
 
-	private float helmR;
-	private float helmG;
-	private float helmB;
-	private int helmType;
+	float helmR;
+	float helmG;
+	float helmB;
+	int helmType;
 
-	private boolean createdChar;
+	boolean createdChar;
 
 	public MCUOSyncMessage(float r, float g, float b, int type, boolean created) {
 		this.helmR = r;
@@ -45,32 +45,5 @@ public class MCUOSyncMessage implements IMessage {
 		buf.writeFloat(helmG);
 		buf.writeFloat(helmB);
 		buf.writeBoolean(createdChar);
-	}
-
-	public static class Handler implements IMessageHandler<MCUOSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(MCUOSyncMessage message, MessageContext ctx) {
-						IThreadListener mainThread = Minecraft.getMinecraft();
-			mainThread.addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayerSP player = mc.player;
-					IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
-					if (capability != null) {
-						capability.setHelmColorR(message.helmR);
-						capability.setHelmColorG(message.helmG);
-						capability.setHelmColorB(message.helmB);
-						capability.setHelmType(message.helmType);
-						
-						capability.setCreatedCharacter(message.createdChar);
-					}
-				}
-
-			});
-
-			return null;
-		}
 	}
 }

@@ -166,9 +166,9 @@ public class MCUOCap implements IMCUO
     @Override
     public void dataChanged(EntityPlayerMP player)
     {
-    	MCUO.NETWORK.sendTo(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter), player);
+    	MCUO.NETWORK.sendToAll(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter));
+    	MCUO.NETWORK.sendToAll(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter));
+    	MCUO.NETWORK.sendToAll(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter));
     }
 
     @Override

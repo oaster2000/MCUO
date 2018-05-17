@@ -51,6 +51,14 @@ public class CapabilityEventHandler {
 			newmcuo.setHelmColorG(mcuo.getHelmColorG());
 			newmcuo.setHelmColorB(mcuo.getHelmColorB());
 			newmcuo.setHelmType(mcuo.getHelmType());
+			newmcuo.setTorsoColorR(mcuo.getTorsoColorR());
+			newmcuo.setTorsoColorG(mcuo.getTorsoColorG());
+			newmcuo.setTorsoColorB(mcuo.getTorsoColorB());
+			newmcuo.setTorsoType(mcuo.getTorsoType());
+			newmcuo.setCapeColorR(mcuo.getCapeColorR());
+			newmcuo.setCapeColorG(mcuo.getCapeColorG());
+			newmcuo.setCapeColorB(mcuo.getCapeColorB());
+			newmcuo.setCapeType(mcuo.getCapeType());
 			newmcuo.setCreatedCharacter(mcuo.hasCreatedCharacter());
 			newmcuo.dataChanged(player);
 			

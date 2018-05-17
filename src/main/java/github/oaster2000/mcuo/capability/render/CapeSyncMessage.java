@@ -13,12 +13,12 @@ public class CapeSyncMessage implements IMessage {
 	
 	public CapeSyncMessage() {
 	}
-	private float capeR;
-	private float capeG;
-	private float capeB;
-	private int capeType;
+	float capeR;
+	float capeG;
+	float capeB;
+	int capeType;
 
-	private boolean createdChar;
+	boolean createdChar;
 
 	public CapeSyncMessage(float r, float g, float b, int type,  boolean created) {
 		this.capeR = r;
@@ -44,33 +44,5 @@ public class CapeSyncMessage implements IMessage {
 		buf.writeFloat(capeG);
 		buf.writeFloat(capeB);
 		buf.writeBoolean(createdChar);
-	}
-
-	public static class Handler implements IMessageHandler<CapeSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(CapeSyncMessage message, MessageContext ctx) {
-						IThreadListener mainThread = Minecraft.getMinecraft();
-			mainThread.addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayerSP player = mc.player;
-					IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
-					if (capability != null) {
-
-						capability.setCapeColorR(message.capeR);
-						capability.setCapeColorG(message.capeG);
-						capability.setCapeColorB(message.capeB);
-						capability.setCapeType(message.capeType);
-						
-						capability.setCreatedCharacter(message.createdChar);
-					}
-				}
-
-			});
-
-			return null;
-		}
 	}
 }

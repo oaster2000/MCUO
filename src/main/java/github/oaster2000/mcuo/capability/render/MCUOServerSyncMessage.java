@@ -14,12 +14,12 @@ public class MCUOServerSyncMessage implements IMessage {
 	public MCUOServerSyncMessage() {
 	}
 
-	private float helmR;
-	private float helmG;
-	private float helmB;
-	private int helmType;
+	float helmR;
+	float helmG;
+	float helmB;
+	int helmType;
 
-	private boolean createdChar;
+	boolean createdChar;
 
 	public MCUOServerSyncMessage(float r, float g, float b, int type, boolean created) {
 		this.helmR = r;
@@ -45,26 +45,5 @@ public class MCUOServerSyncMessage implements IMessage {
 		buf.writeFloat(helmG);
 		buf.writeFloat(helmB);
 		buf.writeBoolean(createdChar);
-	}
-
-	public static class Handler implements IMessageHandler<MCUOServerSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(MCUOServerSyncMessage message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-		    IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
-		    player.getServerWorld().addScheduledTask(() -> {
-		    	if (capability != null) {
-		    		capability.setHelmColorR(message.helmR);
-					capability.setHelmColorG(message.helmG);
-					capability.setHelmColorB(message.helmB);
-					capability.setHelmType(message.helmType);
-					
-					capability.setCreatedCharacter(message.createdChar);
-		    	}
-		     });
-
-	return null;
-}
 	}
 }

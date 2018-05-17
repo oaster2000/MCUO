@@ -63,10 +63,13 @@ public class GUICapeChoice extends GuiChoiceBase {
 		case 2:
 			switch (mcuo.getCapeType()) {
 			case 0:
-				mcuo.setCapeType(1);
+				mcuo.setCapeType(2);
 				break;
 			case 1:
 				mcuo.setCapeType(0);
+				break;
+			case 2:
+				mcuo.setCapeType(1);
 				break;
 			}
 			MCUO.NETWORK.sendToAll(new CapeServerSyncMessage(mcuo.getCapeColorR(), mcuo.getCapeColorG(), mcuo.getCapeColorB(), mcuo.getCapeType(), mcuo.hasCreatedCharacter()));
@@ -77,6 +80,9 @@ public class GUICapeChoice extends GuiChoiceBase {
 				mcuo.setCapeType(1);
 				break;
 			case 1:
+				mcuo.setCapeType(2);
+				break;
+			case 2:
 				mcuo.setCapeType(0);
 				break;
 			}
