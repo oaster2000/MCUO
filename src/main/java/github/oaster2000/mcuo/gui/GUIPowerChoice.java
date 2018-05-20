@@ -2,14 +2,22 @@ package github.oaster2000.mcuo.gui;
 
 import java.io.IOException;
 
+import github.oaster2000.mcuo.capability.CapabilityHandler;
+import github.oaster2000.mcuo.capability.render.IMCUO;
+import github.oaster2000.mcuo.capability.render.PowersServerSyncMessage;
+import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class GUIPowerChoice extends GuiChoiceBase {
 
 	GuiButton powerDown;
 	GuiButton powerUp;
 
+	EntityPlayer player = Minecraft.getMinecraft().player;
+	IMCUO mcuo = player.getCapability(CapabilityHandler.MCUO, null);
+	
 	@Override
 	public void initGui() {
 		this.guiLeft = (this.width - 300) / 2;
@@ -34,8 +42,50 @@ public class GUIPowerChoice extends GuiChoiceBase {
 			Minecraft.getMinecraft().displayGuiScreen(null);
 			return;
 		case 2:
+			switch (mcuo.getPowers()) {
+			case 0:
+				mcuo.setPowers(5);
+				break;
+			case 1:
+				mcuo.setPowers(0);
+				break;
+			case 2:
+				mcuo.setPowers(1);
+				break;
+			case 3:
+				mcuo.setPowers(2);
+				break;
+			case 4:
+				mcuo.setPowers(3);
+				break;
+			case 5:
+				mcuo.setPowers(4);
+				break;
+			}
+			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
+			switch (mcuo.getPowers()) {
+			case 0:
+				mcuo.setPowers(1);
+				break;
+			case 1:
+				mcuo.setPowers(2);
+				break;
+			case 2:
+				mcuo.setPowers(3);
+				break;
+			case 3:
+				mcuo.setPowers(4);
+				break;
+			case 4:
+				mcuo.setPowers(5);
+				break;
+			case 5:
+				mcuo.setPowers(0);
+				break;
+			}
+			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 		try {

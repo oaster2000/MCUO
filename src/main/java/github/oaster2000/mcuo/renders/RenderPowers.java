@@ -1,8 +1,9 @@
 package github.oaster2000.mcuo.renders;
 
+import github.oaster2000.mcuo.capability.CapabilityHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -16,21 +17,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderModelForPlayerNoColor extends RenderLivingBase {
+public class RenderPowers extends RenderLivingBase {
 	private ResourceLocation texture;
+	String type = "";
 
-	public RenderModelForPlayerNoColor(RenderManager rm, ModelBase model, String textureName, float shadowSize) {
+	public RenderPowers(RenderManager rm, ModelBase model, String textureName, float shadowSize, String type) {
 		super(rm, model, shadowSize);
 		if (textureName != null)
-			this.texture = new ResourceLocation(textureName + ".png");
+			this.texture = new ResourceLocation(textureName + "_default.png");
 		if (model != null)
 			this.mainModel = model;
+		this.type = type;
 	}
 	
-	/**
-     * Allows the render to do state modifications necessary before the model is rendered.
-     */
-    protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime)
+	protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime)
     {
         float f = 0.9F;
         GlStateManager.scale(0.9F, 0.9F, 0.9F);
@@ -43,7 +43,7 @@ public class RenderModelForPlayerNoColor extends RenderLivingBase {
 		super.doRender(entity, x, y, z, par8, par9);
 		GlStateManager.pushMatrix();
         GlStateManager.disableCull();
-        GlStateManager.color(1.0f, 1.0f, 1.0f);
+        setModelColor();
         this.mainModel.swingProgress = this.getSwingProgress(entity, par9);
         boolean shouldSit = entity.isRiding() && (entity.getRidingEntity() != null && entity.getRidingEntity().shouldRiderSit());
         this.mainModel.isRiding = shouldSit;
@@ -164,36 +164,26 @@ public class RenderModelForPlayerNoColor extends RenderLivingBase {
         GlStateManager.enableCull();
         GlStateManager.popMatrix();
     }
-	
-	public void renderRightArm(AbstractClientPlayer clientPlayer)
-    {
-        float f = 1.0F;
-        GlStateManager.color(1.0F, 1.0F, 1.0F);
-        float f1 = 0.0625F;
-        ModelBiped modelplayer = (ModelBiped)this.getMainModel();
-        GlStateManager.enableBlend();
-        modelplayer.swingProgress = 0.0F;
-        modelplayer.isSneak = false;
-        modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
-        modelplayer.bipedRightArm.rotateAngleX = 0.0F;
-        modelplayer.bipedRightArm.render(0.0625F);
-        GlStateManager.disableBlend();
-    }
 
-    public void renderLeftArm(AbstractClientPlayer clientPlayer)
-    {
-        float f = 1.0F;
-        GlStateManager.color(1.0F, 1.0F, 1.0F);
-        float f1 = 0.0625F;
-        ModelBiped modelplayer = (ModelBiped)this.getMainModel();
-        GlStateManager.enableBlend();
-        modelplayer.isSneak = false;
-        modelplayer.swingProgress = 0.0F;
-        modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
-        modelplayer.bipedLeftArm.rotateAngleX = 0.0F;
-        modelplayer.bipedLeftArm.render(0.0625F);
-        GlStateManager.disableBlend();
-    }
+	private void setModelColor() {
+        switch(type) {
+        case "FIRE":
+        	GlStateManager.color(1.0f, 0.3f, 0.0f);
+        	return;
+        case "ICE":
+        	GlStateManager.color(0.5f, 1.0f, 0.9f);
+        	return;
+        case "SORCERY":
+        	GlStateManager.color(0.625f, 0.0f, 0.625f);
+        	return;
+        case "MENTAL":
+        	GlStateManager.color(1.0f, 0.0f, 1.0f);
+        	return;
+        case "GADGETS":
+        	GlStateManager.color(0.4f, 0.4f, 0.4f);
+        	return;
+        }
+	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {

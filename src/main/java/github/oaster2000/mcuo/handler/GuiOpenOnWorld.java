@@ -18,8 +18,6 @@ public class GuiOpenOnWorld {
 		if(!(event.player.getCapability(CapabilityHandler.MCUO, null).hasCreatedCharacter())) {
 			event.player.openGui(MCUO.instance, 0, event.player.world, (int)event.player.posX, (int)event.player.posY, (int)event.player.posZ);
 			event.player.getCapability(CapabilityHandler.MCUO, null).setCreatedCharacter(true);
-		}else {
-			
 		}
 	}
 

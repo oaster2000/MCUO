@@ -27,6 +27,8 @@ public class MCUOCap implements IMCUO
 	private float capeG = 1.0f;
 	private float capeB = 1.0f;
 	
+	private int powerset = 0;
+	
 	private static ResourceLocation RL = new ResourceLocation(Reference.modid, "mcuo");
 	
 	public void setHelmColorR(float r) {
@@ -168,6 +170,7 @@ public class MCUOCap implements IMCUO
     	MCUO.NETWORK.sendTo(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter), player);
     	MCUO.NETWORK.sendTo(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter), player);
     	MCUO.NETWORK.sendTo(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter), player);
+    	MCUO.NETWORK.sendTo(new PowersSyncMessage(powerset, createdCharacter), player);
     }
 
     @Override
@@ -187,6 +190,7 @@ public class MCUOCap implements IMCUO
 		nbt.setInteger("torsoType", getTorsoType());
 		nbt.setInteger("capeType", getCapeType());
 		nbt.setBoolean("createdCharacter", hasCreatedCharacter());
+		nbt.setInteger("powerset", getPowers());
 		return nbt;
     }
 
@@ -206,7 +210,18 @@ public class MCUOCap implements IMCUO
 		setTorsoType(((NBTTagCompound) nbt).getInteger("torsoType"));
 		setCapeType(((NBTTagCompound) nbt).getInteger("capeType"));
 		setCreatedCharacter(((NBTTagCompound) nbt).getBoolean("createdCharacter"));
+		setPowers(((NBTTagCompound) nbt).getInteger("powerset"));
     }
+
+	@Override
+	public void setPowers(int power) {
+		powerset = power;
+	}
+
+	@Override
+	public int getPowers() {
+		return powerset;
+	}
 
 
 }

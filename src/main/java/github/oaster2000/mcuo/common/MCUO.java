@@ -2,7 +2,24 @@ package github.oaster2000.mcuo.common;
 
 import github.oaster2000.mcuo.capability.CapabilityEventHandler;
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import github.oaster2000.mcuo.capability.render.*;
+import github.oaster2000.mcuo.capability.levels.LevelSystemServerSyncMessage;
+import github.oaster2000.mcuo.capability.levels.LevelSystemSyncMessage;
+import github.oaster2000.mcuo.capability.render.CapeServerSyncMessage;
+import github.oaster2000.mcuo.capability.render.CapeServerSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.CapeSyncMessage;
+import github.oaster2000.mcuo.capability.render.CapeSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.MCUOServerSyncMessage;
+import github.oaster2000.mcuo.capability.render.MCUOServerSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.MCUOSyncMessage;
+import github.oaster2000.mcuo.capability.render.MCUOSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.PowersServerSyncMessage;
+import github.oaster2000.mcuo.capability.render.PowersServerSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.PowersSyncMessage;
+import github.oaster2000.mcuo.capability.render.PowersSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.TorsoServerSyncMessage;
+import github.oaster2000.mcuo.capability.render.TorsoServerSyncMessageHandler;
+import github.oaster2000.mcuo.capability.render.TorsoSyncMessage;
+import github.oaster2000.mcuo.capability.render.TorsoSyncMessageHandler;
 import github.oaster2000.mcuo.handler.GuiHandler;
 import github.oaster2000.mcuo.handler.GuiOpenOnWorld;
 import github.oaster2000.mcuo.handler.KeyHandler;
@@ -48,7 +65,15 @@ public class MCUO {
         NETWORK.registerMessage(CapeSyncMessageHandler.class, CapeSyncMessage.class, 4, Side.CLIENT);
         
         NETWORK.registerMessage(CapeServerSyncMessageHandler.class, CapeServerSyncMessage.class, 5, Side.SERVER);
-    }
+    
+        NETWORK.registerMessage(LevelSystemSyncMessage.Handler.class, LevelSystemSyncMessage.class, 6, Side.CLIENT);
+        
+        NETWORK.registerMessage(LevelSystemServerSyncMessage.Handler.class, LevelSystemServerSyncMessage.class, 7, Side.SERVER);
+	
+        NETWORK.registerMessage(PowersSyncMessageHandler.class, PowersSyncMessage.class, 8, Side.CLIENT);
+        
+        NETWORK.registerMessage(PowersServerSyncMessageHandler.class, PowersServerSyncMessage.class, 9, Side.SERVER);
+	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {

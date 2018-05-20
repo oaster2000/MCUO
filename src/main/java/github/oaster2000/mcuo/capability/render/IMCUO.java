@@ -32,6 +32,9 @@ public interface IMCUO extends ICapability
 	public int getCapeType();
 	public void setCapeType(int type);
 	
+	public void setPowers(int power);
+	public int getPowers();
+	
 	public boolean hasCreatedCharacter();
 	public void setCreatedCharacter(boolean created);
 

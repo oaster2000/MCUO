@@ -25,11 +25,23 @@ public class CapabilityEventHandler {
 	}
 
 	@SubscribeEvent
+	public void onJoin(PlayerLoggedInEvent event) {
+		if (event.player instanceof EntityPlayerMP) {
+			IMCUO mcuo = event.player.getCapability(CapabilityHandler.MCUO, null);
+			ILevelSystem ls = event.player.getCapability(CapabilityHandler.LVL_SYS, null);
+			if (mcuo != null)
+				mcuo.dataChanged((EntityPlayerMP) event.player);
+			if (ls != null)
+				ls.dataChanged((EntityPlayerMP) event.player);
+		}
+	}
+
+	@SubscribeEvent
 	public void onDeath(PlayerEvent.Clone event) {
 		if (event.isWasDeath()) {
 			IMCUO mcuo = event.getOriginal().getCapability(CapabilityHandler.MCUO, null);
 			IMCUO newmcuo = event.getEntityPlayer().getCapability(CapabilityHandler.MCUO, null);
-			
+
 			ILevelSystem ls = event.getOriginal().getCapability(CapabilityHandler.LVL_SYS, null);
 			ILevelSystem newls = event.getEntityPlayer().getCapability(CapabilityHandler.LVL_SYS, null);
 
@@ -48,7 +60,7 @@ public class CapabilityEventHandler {
 			newmcuo.setCapeType(mcuo.getCapeType());
 			newmcuo.setCreatedCharacter(mcuo.hasCreatedCharacter());
 			newmcuo.dataChanged(player);
-			
+
 			newls.setLevel(ls.getLevel());
 			newls.setExp(ls.getExp());
 			newls.dataChanged(player);
