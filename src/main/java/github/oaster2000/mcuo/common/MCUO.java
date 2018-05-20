@@ -24,6 +24,9 @@ import github.oaster2000.mcuo.handler.GuiHandler;
 import github.oaster2000.mcuo.handler.GuiOpenOnWorld;
 import github.oaster2000.mcuo.handler.KeyHandler;
 import github.oaster2000.mcuo.keybindings.Keybinds;
+import github.oaster2000.mcuo.world.WorldTypeMCUO;
+import github.oaster2000.mcuo.world.biomes.MCUOBiomes;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -87,6 +90,8 @@ public class MCUO {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 		proxy.postInit(e);
+		MCUOBiomes.initBiomeManagerAndDictionary();
+		WorldType MCUO = new WorldTypeMCUO("MCUOOnly");
 	}
 
 }

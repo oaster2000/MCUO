@@ -9,6 +9,6 @@ public class Reference {
 	public static final String version = "Alpha 0.1";
 	
 	public static final boolean isUserOaster = Minecraft.getMinecraft().player.getDisplayNameString().equals("oaster2000");
-	public static final boolean isUserKermit = Minecraft.getMinecraft().player.getDisplayNameString().equals("oaster2001");
+	public static final boolean isUserKermit = Minecraft.getMinecraft().player.getDisplayNameString().equals("_Kermit");
 
 }

@@ -44,10 +44,10 @@ public class ModelKermitSuit extends ModelBiped {
     public ModelRenderer Reactor25;
 
     public ModelKermitSuit(float expand) {
-    	super(0, 0, 100, 50);
+    	super(0.025f, 0, 100, 50);
         this.Reactor25 = new ModelRenderer(this, 28, 35);
         this.Reactor25.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.Reactor25.addBox(-0.5F, 3.1F, -2.02F, 1, 1, 1, 0.0F);
+        this.Reactor25.addBox(-0.5F, 3.1F, -2.05F, 1, 1, 1, 0.0F);
         this.LeftArm = new ModelRenderer(this, 40, 16);
         this.LeftArm.mirror = true;
         this.LeftArm.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -107,7 +107,7 @@ public class ModelKermitSuit extends ModelBiped {
         this.setRotateAngle(Reactor3, -0.7853981633974483F, 0.0F, 1.5707963267948966F);
         this.Reactor24 = new ModelRenderer(this, 28, 35);
         this.Reactor24.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.Reactor24.addBox(-1.0F, 2.4F, -2.02F, 2, 1, 1, 0.0F);
+        this.Reactor24.addBox(-1.0F, 2.4F, -2.05F, 2, 1, 1, 0.0F);
         this.Reactor6 = new ModelRenderer(this, 0, 34);
         this.Reactor6.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.Reactor6.addBox(1.65F, 2.8F, 0.8F, 1, 1, 1, 0.0F);
@@ -188,6 +188,7 @@ public class ModelKermitSuit extends ModelBiped {
         this.bipedBody.addChild(this.Reactor11);
         this.bipedBody.addChild(this.Reactor21);
         this.bipedBody.addChild(this.Reactor12);
+        this.bipedBody.addChild(this.Torso);
         
         this.bipedRightArm.addChild(RightArm);
         this.bipedLeftArm.addChild(LeftArm);

@@ -3,7 +3,7 @@ package github.oaster2000.mcuo.capability.levels;
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -43,7 +43,7 @@ public class LevelSystemSyncMessage implements IMessage {
 				@Override
 				public void run() {
 					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayerSP player = mc.player;
+					EntityPlayer player = mc.player;
 					ILevelSystem capability = player.getCapability(CapabilityHandler.LVL_SYS, null);
 					if (capability != null) {
 						capability.setLevel(message.level);

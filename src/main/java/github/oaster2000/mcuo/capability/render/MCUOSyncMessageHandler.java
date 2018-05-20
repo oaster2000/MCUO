@@ -1,9 +1,8 @@
 package github.oaster2000.mcuo.capability.render;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -18,7 +17,7 @@ public class MCUOSyncMessageHandler implements IMessageHandler<MCUOSyncMessage, 
 			@Override
 			public void run() {
 				Minecraft mc = Minecraft.getMinecraft();
-				EntityPlayerSP player = mc.player;
+				EntityPlayer player = mc.player;
 				IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 				if (capability != null) {
 					capability.setHelmColorR(message.helmR);
