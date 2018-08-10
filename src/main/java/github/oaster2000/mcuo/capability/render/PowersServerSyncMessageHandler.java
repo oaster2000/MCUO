@@ -18,8 +18,9 @@ public class PowersServerSyncMessageHandler implements IMessageHandler<PowersSer
 		    player.getServerWorld().addScheduledTask(() -> {
 		    	if (capability != null) {
 					capability.setPowers(message.powers);
-					
 					capability.setCreatedCharacter(message.createdChar);
+					
+					System.out.println(capability.getPowers());
 		    	}
 		     });
 

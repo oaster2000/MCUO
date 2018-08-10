@@ -21,29 +21,30 @@ public class GUIMaskChoice extends GuiChoiceBase {
 	GuiTextField helmColorR;
 	GuiTextField helmColorG;
 	GuiTextField helmColorB;
-	
+
 	EntityPlayer player = Minecraft.getMinecraft().player;
-	IMCUO mcuo = player.getCapability(CapabilityHandler.MCUO, null);
+	IMCUO mcuo;
 
 	@Override
 	public void initGui() {
+		mcuo = player.getCapability(CapabilityHandler.MCUO, null);
 		this.guiLeft = (this.width - 300) / 2;
 		this.guiTop = (this.height - 200) / 2;
+		
+		helmColorR = new GuiTextField(5, Minecraft.getMinecraft().fontRenderer, guiLeft + 160, guiTop + 65, 30, 20);
+		helmColorG = new GuiTextField(6, Minecraft.getMinecraft().fontRenderer, guiLeft + 210, guiTop + 65, 30, 20);
+		helmColorB = new GuiTextField(7, Minecraft.getMinecraft().fontRenderer, guiLeft + 260, guiTop + 65, 30, 20);
+		
 		helmetDown = new GuiButton(2, guiLeft + 190, guiTop + 25, 20, 20, "<");
 		helmetUp = new GuiButton(3, guiLeft + 230, guiTop + 25, 20, 20, ">");
 		updateColor = new GuiButton(4, guiLeft + 185, guiTop + 90, 80, 20, "Update");
-		this.helmColorR = new GuiTextField(5, Minecraft.getMinecraft().fontRenderer, guiLeft + 160, guiTop + 65, 30,
-				20);
-		this.helmColorG = new GuiTextField(6, Minecraft.getMinecraft().fontRenderer, guiLeft + 210, guiTop + 65, 30,
-				20);
-		this.helmColorB = new GuiTextField(7, Minecraft.getMinecraft().fontRenderer, guiLeft + 260, guiTop + 65, 30,
-				20);
+		
 		this.helmColorR.setMaxStringLength(3);
 		this.helmColorG.setMaxStringLength(3);
 		this.helmColorB.setMaxStringLength(3);
-		this.helmColorR.setText("" + (int)(mcuo.getHelmColorR() * 255));
-		this.helmColorG.setText("" + (int)(mcuo.getHelmColorG() * 255));
-		this.helmColorB.setText("" + (int)(mcuo.getHelmColorB() * 255));
+		this.helmColorR.setText("" + (int) (mcuo.getHelmColorR() * 255));
+		this.helmColorG.setText("" + (int) (mcuo.getHelmColorG() * 255));
+		this.helmColorB.setText("" + (int) (mcuo.getHelmColorB() * 255));
 		buttonList.clear();
 		buttonList.add(helmetDown);
 		buttonList.add(helmetUp);
@@ -73,7 +74,8 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(2);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(), mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
+			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
+					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getHelmType()) {
@@ -90,13 +92,15 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(), mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
+			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
+					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
-			mcuo.setHelmColorR((float)(Integer.parseInt(this.helmColorR.getText())) / 255);
-			mcuo.setHelmColorG((float)(Integer.parseInt(this.helmColorG.getText())) / 255);
-			mcuo.setHelmColorB((float)(Integer.parseInt(this.helmColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(), mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
+			mcuo.setHelmColorR((float) (Integer.parseInt(this.helmColorR.getText())) / 255);
+			mcuo.setHelmColorG((float) (Integer.parseInt(this.helmColorG.getText())) / 255);
+			mcuo.setHelmColorB((float) (Integer.parseInt(this.helmColorB.getText())) / 255);
+			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
+					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 

@@ -17,9 +17,9 @@ public class BiomeField extends Biome {
 		this.decorator.treesPerChunk = 0;
 		this.decorator.extraTreeChance = 0.0F;
 		this.decorator.flowersPerChunk = 0;
-		this.decorator.grassPerChunk = 0;
-		this.topBlock = Blocks.TALLGRASS.getDefaultState();
-		this.fillerBlock = Blocks.GRASS.getDefaultState();
+		this.decorator.grassPerChunk = 16;
+		this.topBlock = Blocks.GRASS.getDefaultState();
+		this.fillerBlock = Blocks.STONE.getDefaultState();
 
 	}
 

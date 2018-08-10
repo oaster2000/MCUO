@@ -5,10 +5,12 @@ import java.io.IOException;
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
 import github.oaster2000.mcuo.capability.render.PowersServerSyncMessage;
+import github.oaster2000.mcuo.capability.render.PowersSyncMessage;
 import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 public class GUIPowerChoice extends GuiChoiceBase {
 
@@ -17,6 +19,9 @@ public class GUIPowerChoice extends GuiChoiceBase {
 
 	EntityPlayer player = Minecraft.getMinecraft().player;
 	IMCUO mcuo = player.getCapability(CapabilityHandler.MCUO, null);
+	
+	private static final ResourceLocation PowerIcons = new ResourceLocation("mcuo",
+			"textures/gui/powericons.png");
 	
 	@Override
 	public void initGui() {
@@ -27,7 +32,7 @@ public class GUIPowerChoice extends GuiChoiceBase {
 		buttonList.clear();
 		buttonList.add(powerDown);
 		buttonList.add(powerUp);
-		this.page = 8;
+		this.page = 1;
 		super.initGui();
 		this.btnNext = new GuiButton(1, guiLeft + 230, guiTop + 160, 60, 20, "Finish");
 	}
@@ -39,7 +44,7 @@ public class GUIPowerChoice extends GuiChoiceBase {
 			Minecraft.getMinecraft().displayGuiScreen(new GUITorsoChoice());
 			return;
 		case 1:
-			Minecraft.getMinecraft().displayGuiScreen(null);
+			Minecraft.getMinecraft().displayGuiScreen(new GUIHorVChoice());
 			return;
 		case 2:
 			switch (mcuo.getPowers()) {
@@ -62,6 +67,7 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(4);
 				break;
 			}
+			System.out.println("Powers: " + mcuo.getPowers());
 			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
@@ -85,6 +91,7 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(0);
 				break;
 			}
+			System.out.println("Powers: " + mcuo.getPowers());
 			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		}
@@ -109,5 +116,7 @@ public class GUIPowerChoice extends GuiChoiceBase {
 		int i = this.guiLeft - 40;
 		int j = this.guiTop;
 		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Power", i + 230, j + 10, 0xffa7a7a7);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(PowerIcons);
+		if(mcuo.getPowers() > 0)this.drawModalRectWithCustomSizedTexture(i + 230, j + 50, 0 + ((mcuo.getPowers() - 1) * 64), 0, 64, 64, 512, 512);
 	}
 }

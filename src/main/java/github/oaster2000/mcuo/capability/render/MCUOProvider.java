@@ -1,47 +1,34 @@
 package github.oaster2000.mcuo.capability.render;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.INBTSerializable;
 
-public class MCUOProvider implements ICapabilitySerializable<NBTTagCompound>{
+public class MCUOProvider implements ICapabilityProvider, INBTSerializable<NBTBase> {
 
-	private IMCUO mcuo;
+	private IMCUO instance = CapabilityHandler.MCUO.getDefaultInstance();
+	
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return capability == CapabilityHandler.MCUO;
+	}
 
-    public MCUOProvider()
-    {
-    	mcuo = new MCUOCap();
-    }
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		return capability == CapabilityHandler.MCUO ? CapabilityHandler.MCUO.<T> cast(this.instance) : null;
+	}
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing)
-    {
-        return capability == CapabilityHandler.MCUO;
-    }
+	@Override
+	public NBTBase serializeNBT() {
+		return CapabilityHandler.MCUO.getStorage().writeNBT(CapabilityHandler.MCUO, instance, null);
+	}
 
-    @SuppressWarnings("unchecked")
-    @Nullable
-    @Override
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing)
-    {
-        return hasCapability(capability, facing) ? (T) mcuo : null;
-    }
-
-    @Override
-    public NBTTagCompound serializeNBT()
-    {
-        return mcuo.serializeNBT();
-    }
-
-    @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
-    	mcuo.deserializeNBT(nbt);
-    }
+	@Override
+	public void deserializeNBT(NBTBase nbt) {
+		CapabilityHandler.MCUO.getStorage().readNBT(CapabilityHandler.MCUO, instance, null, nbt);
+	}
 
 }

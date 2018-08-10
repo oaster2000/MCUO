@@ -35,7 +35,7 @@ public class LevelSystem implements ILevelSystem{
     	NBTTagCompound nbt = new NBTTagCompound();
     	nbt.setInteger("Level", level);
     	nbt.setInteger("Xp", exp);
-		return null;
+		return nbt;
 	}
 
 	@Override

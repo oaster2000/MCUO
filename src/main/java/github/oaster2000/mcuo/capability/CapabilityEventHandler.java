@@ -1,6 +1,7 @@
 package github.oaster2000.mcuo.capability;
 
 import github.oaster2000.mcuo.capability.levels.ILevelSystem;
+import github.oaster2000.mcuo.capability.missions.IMissions;
 import github.oaster2000.mcuo.capability.render.IMCUO;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,8 +21,10 @@ public class CapabilityEventHandler {
 			return;
 		IMCUO mcuo = CapabilityHandler.MCUO.getDefaultInstance();
 		ILevelSystem ls = CapabilityHandler.LVL_SYS.getDefaultInstance();
+		IMissions missions = CapabilityHandler.MISSIONS.getDefaultInstance();
 		event.addCapability(mcuo.getKey(), mcuo.getProvider());
 		event.addCapability(ls.getKey(), ls.getProvider());
+		event.addCapability(missions.getKey(), missions.getProvider());
 	}
 
 	@SubscribeEvent
@@ -29,10 +32,13 @@ public class CapabilityEventHandler {
 		if (event.player instanceof EntityPlayerMP) {
 			IMCUO mcuo = event.player.getCapability(CapabilityHandler.MCUO, null);
 			ILevelSystem ls = event.player.getCapability(CapabilityHandler.LVL_SYS, null);
-			if (mcuo != null)
+			IMissions missions = event.player.getCapability(CapabilityHandler.MISSIONS, null);
+			if (mcuo != null && mcuo.hasCreatedCharacter()) 
 				mcuo.dataChanged((EntityPlayerMP) event.player);
-			if (ls != null)
+			if (ls != null && ls.getExp() > 0) 
 				ls.dataChanged((EntityPlayerMP) event.player);
+			if (missions != null && missions.getCurrentMissionID() > 0)
+				missions.dataChanged((EntityPlayerMP) event.player);
 		}
 	}
 
@@ -44,6 +50,9 @@ public class CapabilityEventHandler {
 
 			ILevelSystem ls = event.getOriginal().getCapability(CapabilityHandler.LVL_SYS, null);
 			ILevelSystem newls = event.getEntityPlayer().getCapability(CapabilityHandler.LVL_SYS, null);
+
+			IMissions missions = event.getOriginal().getCapability(CapabilityHandler.MISSIONS, null);
+			IMissions newMissions = event.getEntityPlayer().getCapability(CapabilityHandler.MISSIONS, null);
 
 			EntityPlayerMP player = (EntityPlayerMP) event.getEntityPlayer();
 			newmcuo.setHelmColorR(mcuo.getHelmColorR());
@@ -58,12 +67,19 @@ public class CapabilityEventHandler {
 			newmcuo.setCapeColorG(mcuo.getCapeColorG());
 			newmcuo.setCapeColorB(mcuo.getCapeColorB());
 			newmcuo.setCapeType(mcuo.getCapeType());
+			newmcuo.setType(mcuo.getType());
 			newmcuo.setCreatedCharacter(mcuo.hasCreatedCharacter());
 			newmcuo.dataChanged(player);
 
 			newls.setLevel(ls.getLevel());
 			newls.setExp(ls.getExp());
 			newls.dataChanged(player);
+			
+			newMissions.setHKC(missions.getHeroKillCount());
+			newMissions.setAHKC(missions.getAntiHeroKillCount());
+			newMissions.setVKC(missions.getVillainKillCount());
+			newMissions.setCurrentMissionID(missions.getCurrentMissionID());
+			newMissions.dataChanged(player);
 		}
 	}
 }

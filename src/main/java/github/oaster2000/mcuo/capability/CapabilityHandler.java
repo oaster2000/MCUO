@@ -4,6 +4,8 @@ import java.util.concurrent.Callable;
 
 import github.oaster2000.mcuo.capability.levels.ILevelSystem;
 import github.oaster2000.mcuo.capability.levels.LevelSystem;
+import github.oaster2000.mcuo.capability.missions.IMissions;
+import github.oaster2000.mcuo.capability.missions.Missions;
 import github.oaster2000.mcuo.capability.render.IMCUO;
 import github.oaster2000.mcuo.capability.render.MCUOCap;
 import net.minecraftforge.common.capabilities.Capability;
@@ -17,6 +19,9 @@ public class CapabilityHandler {
 
 	@CapabilityInject(ILevelSystem.class)
 	public static Capability<ILevelSystem> LVL_SYS = null;
+	
+	@CapabilityInject(IMissions.class)
+	public static Capability<IMissions> MISSIONS = null;
 
 	public static void init()
 
@@ -32,6 +37,13 @@ public class CapabilityHandler {
 			@Override
 			public ILevelSystem call() throws Exception {
 				return new LevelSystem();
+			}
+		});
+		
+		CapabilityManager.INSTANCE.register(IMissions.class, new Storage<IMissions>(), new Callable<IMissions>() {
+			@Override
+			public IMissions call() throws Exception {
+				return new Missions();
 			}
 		});
 	}

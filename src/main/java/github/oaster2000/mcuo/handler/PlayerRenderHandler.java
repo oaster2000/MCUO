@@ -56,6 +56,8 @@ public class PlayerRenderHandler {
 			if (mcuo.getHelmType() == 1) {
 				ModelBiped model = new ModelHelmet1(0.2f);
 				model.isSneak = post.getEntityPlayer().isSneaking();
+				model.isRiding = post.getEntityPlayer().isRiding();
+				model.swingProgress = post.getRenderer().getMainModel().swingProgress;
 				final Render renderCustomModel = new RenderModelForPlayer(post.getRenderer().getRenderManager(), model,
 						"mcuo:textures/models/helmet1", 1.0f, "HELM");
 				renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);

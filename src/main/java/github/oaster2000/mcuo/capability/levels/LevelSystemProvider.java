@@ -1,47 +1,34 @@
 package github.oaster2000.mcuo.capability.levels;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.INBTSerializable;
 
-public class LevelSystemProvider implements ICapabilitySerializable<NBTTagCompound>{
+public class LevelSystemProvider implements ICapabilityProvider, INBTSerializable<NBTBase> {
 
-	private ILevelSystem ls;
+	private ILevelSystem instance = CapabilityHandler.LVL_SYS.getDefaultInstance();
+	
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return capability == CapabilityHandler.LVL_SYS;
+	}
 
-    public LevelSystemProvider()
-    {
-    	ls = new LevelSystem();
-    }
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		return capability == CapabilityHandler.LVL_SYS ? CapabilityHandler.LVL_SYS.<T> cast(this.instance) : null;
+	}
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing)
-    {
-        return capability == CapabilityHandler.LVL_SYS;
-    }
+	@Override
+	public NBTBase serializeNBT() {
+		return CapabilityHandler.LVL_SYS.getStorage().writeNBT(CapabilityHandler.LVL_SYS, instance, null);
+	}
 
-    @SuppressWarnings("unchecked")
-    @Nullable
-    @Override
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing)
-    {
-        return hasCapability(capability, facing) ? (T) ls : null;
-    }
-
-    @Override
-    public NBTTagCompound serializeNBT()
-    {
-        return ls.serializeNBT();
-    }
-
-    @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
-    	ls.deserializeNBT(nbt);
-    }
+	@Override
+	public void deserializeNBT(NBTBase nbt) {
+		CapabilityHandler.LVL_SYS.getStorage().readNBT(CapabilityHandler.LVL_SYS, instance, null, nbt);
+	}
 
 }

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiChoiceBase extends GuiScreen {
@@ -25,6 +26,8 @@ public class GuiChoiceBase extends GuiScreen {
 	
 	GuiButton btnPrev;
 	GuiButton btnNext;
+	
+	EntityPlayer player;
 	
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation("mcuo",
 			"textures/gui/char_creation.png");

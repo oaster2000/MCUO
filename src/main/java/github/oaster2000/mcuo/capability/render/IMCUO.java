@@ -35,6 +35,9 @@ public interface IMCUO extends ICapability
 	public void setPowers(int power);
 	public int getPowers();
 	
+	public void setType(int power);
+	public int getType();
+	
 	public boolean hasCreatedCharacter();
 	public void setCreatedCharacter(boolean created);
 

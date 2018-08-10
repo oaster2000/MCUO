@@ -18,6 +18,12 @@ public class WorldTypeMCUO extends WorldType {
 		super(name);
 	}
 	
+	@SideOnly(Side.CLIENT)
+    public boolean canBeCreated()
+    {
+        return false;
+    }
+	
 	@Override
     public BiomeProvider getBiomeProvider(World world){
         return new MCUOBiomeProvider();
