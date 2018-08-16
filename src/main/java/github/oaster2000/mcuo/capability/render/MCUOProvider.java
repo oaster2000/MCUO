@@ -1,6 +1,7 @@
 package github.oaster2000.mcuo.capability.render;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
+import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -9,7 +10,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class MCUOProvider implements ICapabilityProvider, INBTSerializable<NBTBase> {
 
-	private IMCUO instance = CapabilityHandler.MCUO.getDefaultInstance();
+	private IMCUO instance;
+
+	public MCUOProvider() {
+		instance = new MCUOCap();
+	}
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

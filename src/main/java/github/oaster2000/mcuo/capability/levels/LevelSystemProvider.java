@@ -9,7 +9,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class LevelSystemProvider implements ICapabilityProvider, INBTSerializable<NBTBase> {
 
-	private ILevelSystem instance = CapabilityHandler.LVL_SYS.getDefaultInstance();
+	private ILevelSystem instance;
+	
+	public LevelSystemProvider() {
+		instance = new LevelSystem();
+	}
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

@@ -1,6 +1,8 @@
 package github.oaster2000.mcuo.capability.missions;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
+import github.oaster2000.mcuo.capability.levels.ILevelSystem;
+import github.oaster2000.mcuo.capability.levels.LevelSystem;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -8,9 +10,13 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class MissionsProvider implements ICapabilityProvider, INBTSerializable<NBTBase> {
-
-	private IMissions instance = CapabilityHandler.MISSIONS.getDefaultInstance();
 	
+	private IMissions instance;
+
+	public MissionsProvider() {
+		instance = new Missions();
+	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		return capability == CapabilityHandler.MISSIONS;
@@ -18,7 +24,7 @@ public class MissionsProvider implements ICapabilityProvider, INBTSerializable<N
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return capability == CapabilityHandler.MISSIONS ? CapabilityHandler.MISSIONS.<T> cast(this.instance) : null;
+		return capability == CapabilityHandler.MISSIONS ? CapabilityHandler.MISSIONS.<T>cast(this.instance) : null;
 	}
 
 	@Override

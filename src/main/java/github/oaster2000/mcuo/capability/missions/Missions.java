@@ -46,7 +46,7 @@ public class Missions implements IMissions{
 	public void deserializeNBT(NBTTagCompound nbt) {
 		setHKC(((NBTTagCompound) nbt).getInteger("hKC"));
 		setAHKC(((NBTTagCompound) nbt).getInteger("aHKC"));
-		setVKC(((NBTTagCompound) nbt).getInteger("aHKC"));
+		setVKC(((NBTTagCompound) nbt).getInteger("vKC"));
 		setCurrentMissionID(((NBTTagCompound) nbt).getInteger("currID"));
 	}
 
