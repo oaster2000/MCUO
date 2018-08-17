@@ -52,6 +52,7 @@ public class LevelSystem implements ILevelSystem{
 	@Override
 	public void setLevel(int lvl) {
 		this.level = lvl;
+		MCUO.NETWORK.sendToServer(new LevelSystemSyncMessage(this.level, this.exp));
 	}
 
 	@Override
@@ -62,6 +63,7 @@ public class LevelSystem implements ILevelSystem{
 	@Override
 	public void setExp(int exp) {
 		this.exp = exp;
+		MCUO.NETWORK.sendToServer(new LevelSystemSyncMessage(this.level, this.exp));
 	}
 
 }

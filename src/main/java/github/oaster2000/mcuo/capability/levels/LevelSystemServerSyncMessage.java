@@ -14,8 +14,8 @@ public class LevelSystemServerSyncMessage implements IMessage {
 	public LevelSystemServerSyncMessage() {
 	}
 
-	private int level;
-	private int exp;
+	int level;
+	int exp;
 
 	public LevelSystemServerSyncMessage(int lvl, int xp) {
 		this.level = lvl;
@@ -32,22 +32,5 @@ public class LevelSystemServerSyncMessage implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(level);
 		buf.writeInt(exp);
-	}
-
-	public static class Handler implements IMessageHandler<LevelSystemServerSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(LevelSystemServerSyncMessage message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-		    ILevelSystem capability = player.getCapability(CapabilityHandler.LVL_SYS, null);
-		    player.getServerWorld().addScheduledTask(() -> {
-		    	if (capability != null) {
-		    		capability.setLevel(message.level);
-		    		capability.setExp(message.exp);
-		    	}
-		     });
-
-	return null;
-}
 	}
 }

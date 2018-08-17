@@ -14,10 +14,10 @@ public class MissionsServerSyncMessage implements IMessage {
 	public MissionsServerSyncMessage() {
 	}
 
-	private int hkc;
-	private int ahkc;
-	private int vkc;
-	private int missionID;
+	int hkc;
+	int ahkc;
+	int vkc;
+	int missionID;
 
 	public MissionsServerSyncMessage(int hkc, int ahkc, int vkc, int id) {
 		this.hkc = hkc;
@@ -40,24 +40,5 @@ public class MissionsServerSyncMessage implements IMessage {
 		buf.writeInt(ahkc);
 		buf.writeInt(vkc);
 		buf.writeInt(missionID);
-	}
-
-	public static class Handler implements IMessageHandler<MissionsServerSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(MissionsServerSyncMessage message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-		    IMissions capability = player.getCapability(CapabilityHandler.MISSIONS, null);
-		    player.getServerWorld().addScheduledTask(() -> {
-		    	if (capability != null) {
-		    		capability.setHKC(message.hkc);
-		    		capability.setAHKC(message.ahkc);
-		    		capability.setVKC(message.vkc);
-		    		capability.setCurrentMissionID(message.missionID);
-		    	}
-		     });
-
-	return null;
-}
 	}
 }

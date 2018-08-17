@@ -58,6 +58,7 @@ public class Missions implements IMissions{
 	@Override
 	public void setHKC(int kc) {
 		this.heroKillCount = kc;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 	@Override
@@ -68,6 +69,7 @@ public class Missions implements IMissions{
 	@Override
 	public void setAHKC(int kc) {
 		this.antiHeroKillCount = kc;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 	
 	@Override
@@ -78,21 +80,25 @@ public class Missions implements IMissions{
 	@Override
 	public void setVKC(int kc) {
 		this.villainKillCount = kc;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 	@Override
 	public void addToHeroKillCount() {
 		this.heroKillCount = heroKillCount + 1;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 	@Override
 	public void addToAntiHeroKillCount() {
 		this.antiHeroKillCount = antiHeroKillCount + 1;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 	@Override
 	public void addToVillainKillCount() {
 		this.villainKillCount = villainKillCount + 1;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 	@Override
@@ -103,6 +109,7 @@ public class Missions implements IMissions{
 	@Override
 	public void setCurrentMissionID(int newID) {
 		currentMissionID = newID;
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
 	}
 
 }

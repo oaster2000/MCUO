@@ -52,7 +52,7 @@ public class RPacket implements IMessage {
 				return null;
 			}
 
-			EntityPlayer player = Minecraft.getMinecraft().player;
+			EntityPlayer player = ctx.getServerHandler().player;
 
 			int direction = MathHelper.floor((double) ((player.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 			IMCUO mcuo = player.getCapability(CapabilityHandler.MCUO, null);

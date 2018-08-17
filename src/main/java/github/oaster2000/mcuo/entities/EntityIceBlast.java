@@ -53,8 +53,7 @@ public class EntityIceBlast extends EntityThrowable implements IEntityAdditional
 			if (this.shootingEntity != null) {
 				if (hitPos.entityHit != null) {
 					if ((hitPos.entityHit instanceof EntityLivingBase)) {
-						EntityLivingBase livingEntity = (EntityLivingBase)hitPos.entityHit;
-						livingEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 10));
+						((EntityLivingBase) hitPos.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 10));
 						hitPos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)shootingEntity), 0.5f);
 					}
 				}

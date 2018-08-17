@@ -14,8 +14,8 @@ public class LevelSystemSyncMessage implements IMessage {
 	public LevelSystemSyncMessage() {
 	}
 
-	private int level;
-	private int exp;
+	int level;
+	int exp;
 
 	public LevelSystemSyncMessage(int lvl, int xp) {
 		this.level = lvl;
@@ -32,28 +32,5 @@ public class LevelSystemSyncMessage implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(level);
 		buf.writeInt(exp);
-	}
-
-	public static class Handler implements IMessageHandler<LevelSystemSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(LevelSystemSyncMessage message, MessageContext ctx) {
-						IThreadListener mainThread = Minecraft.getMinecraft();
-			mainThread.addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayer player = mc.player;
-					ILevelSystem capability = player.getCapability(CapabilityHandler.LVL_SYS, null);
-					if (capability != null) {
-						capability.setLevel(message.level);
-						capability.setExp(message.exp);
-					}
-				}
-
-			});
-
-			return null;
-		}
 	}
 }

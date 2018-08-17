@@ -3,9 +3,13 @@ package github.oaster2000.mcuo.common;
 import github.oaster2000.mcuo.capability.CapabilityEventHandler;
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.levels.LevelSystemServerSyncMessage;
+import github.oaster2000.mcuo.capability.levels.LevelSystemServerSyncMessageHandler;
 import github.oaster2000.mcuo.capability.levels.LevelSystemSyncMessage;
+import github.oaster2000.mcuo.capability.levels.LevelSystemSyncMessageHandler;
 import github.oaster2000.mcuo.capability.missions.MissionsServerSyncMessage;
+import github.oaster2000.mcuo.capability.missions.MissionsServerSyncMessageHandler;
 import github.oaster2000.mcuo.capability.missions.MissionsSyncMessage;
+import github.oaster2000.mcuo.capability.missions.MissionsSyncMessageHandler;
 import github.oaster2000.mcuo.capability.render.CapeServerSyncMessage;
 import github.oaster2000.mcuo.capability.render.CapeServerSyncMessageHandler;
 import github.oaster2000.mcuo.capability.render.CapeSyncMessage;
@@ -85,9 +89,9 @@ public class MCUO {
         
         NETWORK.registerMessage(CapeServerSyncMessageHandler.class, CapeServerSyncMessage.class, 5, Side.SERVER);
     
-        NETWORK.registerMessage(LevelSystemSyncMessage.Handler.class, LevelSystemSyncMessage.class, 6, Side.CLIENT);
+        NETWORK.registerMessage(LevelSystemSyncMessageHandler.class, LevelSystemSyncMessage.class, 6, Side.CLIENT);
         
-        NETWORK.registerMessage(LevelSystemServerSyncMessage.Handler.class, LevelSystemServerSyncMessage.class, 7, Side.SERVER);
+        NETWORK.registerMessage(LevelSystemServerSyncMessageHandler.class, LevelSystemServerSyncMessage.class, 7, Side.SERVER);
 	
         NETWORK.registerMessage(PowersSyncMessageHandler.class, PowersSyncMessage.class, 8, Side.CLIENT);
         
@@ -101,9 +105,9 @@ public class MCUO {
 	
         NETWORK.registerMessage(CharacterCreationMessageHandler.class, CharacterCreationMessage.class, 13, Side.CLIENT);
 	
-        NETWORK.registerMessage(MissionsSyncMessage.Handler.class, MissionsSyncMessage.class, 14, Side.CLIENT);
+        NETWORK.registerMessage(MissionsSyncMessageHandler.class, MissionsSyncMessage.class, 14, Side.CLIENT);
         
-        NETWORK.registerMessage(MissionsServerSyncMessage.Handler.class, MissionsServerSyncMessage.class, 15, Side.SERVER);
+        NETWORK.registerMessage(MissionsServerSyncMessageHandler.class, MissionsServerSyncMessage.class, 15, Side.SERVER);
 	
         NETWORK.registerMessage(RPacket.Handler.class, RPacket.class, 16, Side.SERVER);
         

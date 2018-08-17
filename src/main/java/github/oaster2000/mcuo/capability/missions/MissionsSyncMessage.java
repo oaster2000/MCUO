@@ -14,10 +14,10 @@ public class MissionsSyncMessage implements IMessage {
 	public MissionsSyncMessage() {
 	}
 
-	private int hkc;
-	private int ahkc;
-	private int vkc;
-	private int currID;
+	int hkc;
+	int ahkc;
+	int vkc;
+	int currID;
 
 	public MissionsSyncMessage(int hkc, int ahkc, int vkc, int currID) {
 		this.hkc = hkc;
@@ -40,30 +40,5 @@ public class MissionsSyncMessage implements IMessage {
 		buf.writeInt(ahkc);
 		buf.writeInt(vkc);
 		buf.writeInt(currID);
-	}
-
-	public static class Handler implements IMessageHandler<MissionsSyncMessage, IMessage> {
-
-		@Override
-		public IMessage onMessage(MissionsSyncMessage message, MessageContext ctx) {
-						IThreadListener mainThread = Minecraft.getMinecraft();
-			mainThread.addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
-					EntityPlayer player = mc.player;
-					IMissions capability = player.getCapability(CapabilityHandler.MISSIONS, null);
-					if (capability != null) {
-						capability.setHKC(message.hkc);
-						capability.setAHKC(message.ahkc);
-						capability.setVKC(message.vkc);
-						capability.setCurrentMissionID(message.currID);
-					}
-				}
-
-			});
-
-			return null;
-		}
 	}
 }

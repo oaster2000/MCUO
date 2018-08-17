@@ -18,8 +18,8 @@ public class TypeServerSyncMessage implements IMessage {
 
 	boolean createdChar;
 
-	public TypeServerSyncMessage(int powers, boolean created) {
-		this.type = powers;
+	public TypeServerSyncMessage(int type, boolean created) {
+		this.type = type;
 		this.createdChar = created;
 	}
 
