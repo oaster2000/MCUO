@@ -19,32 +19,31 @@ public class CapabilityHandler {
 
 	@CapabilityInject(ILevelSystem.class)
 	public static Capability<ILevelSystem> LVL_SYS = null;
-	
+
 	@CapabilityInject(IMissions.class)
 	public static Capability<IMissions> MISSIONS = null;
 
-	public static void init()
-
-	{
+	public static void init() {
 		CapabilityManager.INSTANCE.register(IMCUO.class, new Storage<IMCUO>(), new Callable<IMCUO>() {
 			@Override
 			public IMCUO call() throws Exception {
 				return new MCUOCap();
 			}
 		});
-		
+
 		CapabilityManager.INSTANCE.register(ILevelSystem.class, new Storage<ILevelSystem>(), new Callable<ILevelSystem>() {
 			@Override
 			public ILevelSystem call() throws Exception {
 				return new LevelSystem();
 			}
 		});
-		
+
 		CapabilityManager.INSTANCE.register(IMissions.class, new Storage<IMissions>(), new Callable<IMissions>() {
 			@Override
 			public IMissions call() throws Exception {
 				return new Missions();
 			}
 		});
+
 	}
 }

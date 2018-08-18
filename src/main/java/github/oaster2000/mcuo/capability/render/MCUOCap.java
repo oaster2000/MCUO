@@ -111,19 +111,19 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setTorsoColorR(float r) {
 		torsoR = r;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
 	}
 	
 	@Override
 	public void setTorsoColorG(float g) {
 		torsoG = g;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
 	}
 	
 	@Override
 	public void setTorsoColorB(float b) {
 		torsoB = b;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
 	}
 	
 	public int getHelmType() {
@@ -216,20 +216,21 @@ public class MCUOCap implements IMCUO
     public void deserializeNBT(NBTTagCompound nbt)
     {
     	setHelmColorR(((NBTTagCompound) nbt).getFloat("helmR"));
-		setHelmColorG(((NBTTagCompound) nbt).getFloat("helmG"));
-		setHelmColorB(((NBTTagCompound) nbt).getFloat("helmB"));
+    	setHelmColorG(((NBTTagCompound) nbt).getFloat("helmG"));
+    	setHelmColorB(((NBTTagCompound) nbt).getFloat("helmB"));
     	setTorsoColorR(((NBTTagCompound) nbt).getFloat("torsoR"));
-		setTorsoColorG(((NBTTagCompound) nbt).getFloat("torsoG"));
-		setTorsoColorB(((NBTTagCompound) nbt).getFloat("torsoB"));
+    	setTorsoColorG(((NBTTagCompound) nbt).getFloat("torsoG"));
+    	setTorsoColorB(((NBTTagCompound) nbt).getFloat("torsoB"));
     	setCapeColorR(((NBTTagCompound) nbt).getFloat("capeR"));
-		setCapeColorG(((NBTTagCompound) nbt).getFloat("capeG"));
-		setCapeColorB(((NBTTagCompound) nbt).getFloat("capeB"));
+    	setCapeColorG(((NBTTagCompound) nbt).getFloat("capeG"));
+    	setCapeColorB(((NBTTagCompound) nbt).getFloat("capeB"));
 		setHelmType(((NBTTagCompound) nbt).getInteger("helmType"));
 		setTorsoType(((NBTTagCompound) nbt).getInteger("torsoType"));
 		setCapeType(((NBTTagCompound) nbt).getInteger("capeType"));
 		setCreatedCharacter(((NBTTagCompound) nbt).getBoolean("createdCharacter"));
 		setPowers(((NBTTagCompound) nbt).getInteger("powerset"));
 		setType(((NBTTagCompound) nbt).getInteger("type"));
+		
     }
 
 	@Override

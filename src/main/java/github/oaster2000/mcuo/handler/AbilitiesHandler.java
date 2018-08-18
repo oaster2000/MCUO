@@ -25,6 +25,7 @@ public class AbilitiesHandler {
 
 	@SubscribeEvent
 	public void onTick(TickEvent.PlayerTickEvent event) {
+		System.out.println(Abilities.isFlying);
 		int key = Keyboard.getEventKey();
 		boolean isDown = Keyboard.getEventKeyState();
 		EntityPlayer player = event.player;
