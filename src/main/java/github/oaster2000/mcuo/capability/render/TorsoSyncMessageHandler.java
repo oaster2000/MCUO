@@ -20,9 +20,7 @@ public class TorsoSyncMessageHandler implements IMessageHandler<TorsoSyncMessage
 				EntityPlayer player = mc.player;
 				IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 				if (capability != null) {
-					capability.setTorsoColorR(message.torsoR);
-					capability.setTorsoColorG(message.torsoG);
-					capability.setTorsoColorB(message.torsoB);
+					capability.setTorsoColor(message.torsoR, message.torsoG, message.torsoB);
 					capability.setTorsoType(message.torsoType);
 					
 					capability.setCreatedCharacter(message.createdChar);

@@ -57,6 +57,8 @@ public class GUIMaskChoice extends GuiChoiceBase {
 	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 		case 1:
+			MCUO.NETWORK.sendToServer(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
+					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(new GUITorsoChoice());
 			return;
 		case 2:
@@ -74,8 +76,6 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(2);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getHelmType()) {
@@ -92,15 +92,9 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
-			mcuo.setHelmColorR((float) (Integer.parseInt(this.helmColorR.getText())) / 255);
-			mcuo.setHelmColorG((float) (Integer.parseInt(this.helmColorG.getText())) / 255);
-			mcuo.setHelmColorB((float) (Integer.parseInt(this.helmColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
+			mcuo.setHelmColor((float) (Integer.parseInt(this.helmColorR.getText())) / 255, (float) (Integer.parseInt(this.helmColorG.getText())) / 255, (float) (Integer.parseInt(this.helmColorB.getText())) / 255);
 			return;
 		}
 

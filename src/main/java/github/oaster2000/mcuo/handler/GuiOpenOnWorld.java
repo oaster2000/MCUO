@@ -17,10 +17,10 @@ public class GuiOpenOnWorld {
 	public void onLog(PlayerEvent.PlayerLoggedInEvent event) {
 		IMCUO mcuo = event.player.getCapability(CapabilityHandler.MCUO, null);
 		if (!(mcuo.hasCreatedCharacter()) && event.player != null && !event.player.world.isRemote) {
-			MCUO.NETWORK.sendToAll(new CharacterCreationMessage());
+			MCUO.NETWORK.sendTo(new CharacterCreationMessage(), (EntityPlayerMP) event.player);
 			mcuo.setCreatedCharacter(true);
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
+			MCUO.NETWORK.sendTo(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
+					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()), (EntityPlayerMP) event.player);
 		}
 	}
 

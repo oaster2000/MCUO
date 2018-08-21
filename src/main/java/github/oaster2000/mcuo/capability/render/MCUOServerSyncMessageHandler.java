@@ -17,9 +17,7 @@ public class MCUOServerSyncMessageHandler implements IMessageHandler<MCUOServerS
 		IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 		player.getServerWorld().addScheduledTask(() -> {
 			if (capability != null) {
-				capability.setHelmColorR(message.helmR);
-				capability.setHelmColorG(message.helmG);
-				capability.setHelmColorB(message.helmB);
+				capability.setHelmColor(message.helmR, message.helmG, message.helmB);
 				capability.setHelmType(message.helmType);
 
 				capability.setCreatedCharacter(message.createdChar);

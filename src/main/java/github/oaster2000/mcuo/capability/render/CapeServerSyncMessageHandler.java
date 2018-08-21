@@ -17,9 +17,7 @@ public class CapeServerSyncMessageHandler implements IMessageHandler<CapeServerS
 		IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 		player.getServerWorld().addScheduledTask(() -> {
 			if (capability != null) {
-				capability.setCapeColorR(message.capeR);
-				capability.setCapeColorG(message.capeG);
-				capability.setCapeColorB(message.capeB);
+				capability.setCapeColor(message.capeR, message.capeG, message.capeB);
 				capability.setCapeType(message.capeType);
 
 				capability.setCreatedCharacter(message.createdChar);

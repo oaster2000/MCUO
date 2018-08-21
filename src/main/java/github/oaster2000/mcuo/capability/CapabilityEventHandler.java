@@ -65,18 +65,16 @@ public class CapabilityEventHandler {
 			IMissions newMissions = event.getEntityPlayer().getCapability(CapabilityHandler.MISSIONS, null);
 
 			EntityPlayerMP player = (EntityPlayerMP) event.getEntityPlayer();
-			newmcuo.setHelmColorR(mcuo.getHelmColorR());
-			newmcuo.setHelmColorG(mcuo.getHelmColorG());
-			newmcuo.setHelmColorB(mcuo.getHelmColorB());
+			
+			newmcuo.setHelmColor(mcuo.getHelmColorR(), mcuo.getHelmColorG(), mcuo.getHelmColorB());
 			newmcuo.setHelmType(mcuo.getHelmType());
-			newmcuo.setTorsoColorR(mcuo.getTorsoColorR());
-			newmcuo.setTorsoColorG(mcuo.getTorsoColorG());
-			newmcuo.setTorsoColorB(mcuo.getTorsoColorB());
+			
+			newmcuo.setTorsoColor(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB());
 			newmcuo.setTorsoType(mcuo.getTorsoType());
-			newmcuo.setCapeColorR(mcuo.getCapeColorR());
-			newmcuo.setCapeColorG(mcuo.getCapeColorG());
-			newmcuo.setCapeColorB(mcuo.getCapeColorB());
+			
+			newmcuo.setCapeColor(mcuo.getCapeColorR(), mcuo.getCapeColorG(), mcuo.getCapeColorB());
 			newmcuo.setCapeType(mcuo.getCapeType());
+			
 			newmcuo.setType(mcuo.getType());
 			newmcuo.setCreatedCharacter(mcuo.hasCreatedCharacter());
 			newmcuo.dataChanged(player);

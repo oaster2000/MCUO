@@ -20,9 +20,7 @@ public class MCUOSyncMessageHandler implements IMessageHandler<MCUOSyncMessage, 
 				EntityPlayer player = mc.player;
 				IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 				if (capability != null) {
-					capability.setHelmColorR(message.helmR);
-					capability.setHelmColorG(message.helmG);
-					capability.setHelmColorB(message.helmB);
+					capability.setHelmColor(message.helmR, message.helmG, message.helmB);
 					capability.setHelmType(message.helmType);
 
 					capability.setCreatedCharacter(message.createdChar);

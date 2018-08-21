@@ -55,9 +55,11 @@ public class GUITorsoChoice extends GuiChoiceBase {
 	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 		case 0:
+			MCUO.NETWORK.sendToServer(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(new GUIMaskChoice());
 			return;
 		case 1:
+			MCUO.NETWORK.sendToServer(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(new GUICapeChoice());
 			return;
 		case 2:
@@ -69,7 +71,6 @@ public class GUITorsoChoice extends GuiChoiceBase {
 				mcuo.setTorsoType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getTorsoType()) {
@@ -80,13 +81,9 @@ public class GUITorsoChoice extends GuiChoiceBase {
 				mcuo.setTorsoType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
-			mcuo.setTorsoColorR((float)(Integer.parseInt(this.torsoColorR.getText())) / 255);
-			mcuo.setTorsoColorG((float)(Integer.parseInt(this.torsoColorG.getText())) / 255);
-			mcuo.setTorsoColorB((float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
+			mcuo.setTorsoColor((float)(Integer.parseInt(this.torsoColorR.getText())) / 255, (float)(Integer.parseInt(this.torsoColorG.getText())) / 255, (float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
 			return;
 		}
 

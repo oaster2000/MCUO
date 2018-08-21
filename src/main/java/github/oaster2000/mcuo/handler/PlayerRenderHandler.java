@@ -105,35 +105,35 @@ public class PlayerRenderHandler {
 
 		}
 
-		if (mcuo.getPowers() == 1) {
+		if (mcuo.getPowers() == 1 && Minecraft.getMinecraft().currentScreen != null) {
 			ModelBiped model = new ModelPowers(0.2f);
 			model.isSneak = post.getEntityPlayer().isSneaking();
 			final Render renderCustomModel = new RenderPowers(post.getRenderer().getRenderManager(), model,
 					"mcuo:textures/models/powers", 1.0f, "FIRE");
 			renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 		}
-		if (mcuo.getPowers() == 2) {
+		if (mcuo.getPowers() == 2 && Minecraft.getMinecraft().currentScreen != null) {
 			ModelBiped model = new ModelPowers(0.2f);
 			model.isSneak = post.getEntityPlayer().isSneaking();
 			final Render renderCustomModel = new RenderPowers(post.getRenderer().getRenderManager(), model,
 					"mcuo:textures/models/powers", 1.0f, "ICE");
 			renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 		}
-		if (mcuo.getPowers() == 3) {
+		if (mcuo.getPowers() == 3 && Minecraft.getMinecraft().currentScreen != null) {
 			ModelBiped model = new ModelPowers(0.2f);
 			model.isSneak = post.getEntityPlayer().isSneaking();
 			final Render renderCustomModel = new RenderPowers(post.getRenderer().getRenderManager(), model,
 					"mcuo:textures/models/powers", 1.0f, "SORCERY");
 			renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 		}
-		if (mcuo.getPowers() == 4) {
+		if (mcuo.getPowers() == 4 && Minecraft.getMinecraft().currentScreen != null) {
 			ModelBiped model = new ModelPowers(0.2f);
 			model.isSneak = post.getEntityPlayer().isSneaking();
 			final Render renderCustomModel = new RenderPowers(post.getRenderer().getRenderManager(), model,
 					"mcuo:textures/models/powers", 1.0f, "MENTAL");
 			renderCustomModel.doRender(post.getEntity(), 0F, -0.1075f, 0F, 0F, 0.0625F);
 		}
-		if (mcuo.getPowers() == 5) {
+		if (mcuo.getPowers() == 5 && Minecraft.getMinecraft().currentScreen != null) {
 			ModelBiped model = new ModelPowers(0.2f);
 			model.isSneak = post.getEntityPlayer().isSneaking();
 			final Render renderCustomModel = new RenderPowers(post.getRenderer().getRenderManager(), model,

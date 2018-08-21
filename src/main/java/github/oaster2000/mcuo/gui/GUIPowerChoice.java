@@ -41,9 +41,11 @@ public class GUIPowerChoice extends GuiChoiceBase {
 	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 		case 0:
+			MCUO.NETWORK.sendToServer(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(new GUITorsoChoice());
 			return;
 		case 1:
+			MCUO.NETWORK.sendToServer(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(new GUIHorVChoice());
 			return;
 		case 2:
@@ -67,8 +69,6 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(4);
 				break;
 			}
-			System.out.println("Powers: " + mcuo.getPowers());
-			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getPowers()) {
@@ -91,8 +91,6 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(0);
 				break;
 			}
-			System.out.println("Powers: " + mcuo.getPowers());
-			MCUO.NETWORK.sendToAll(new PowersServerSyncMessage(mcuo.getPowers(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 		try {

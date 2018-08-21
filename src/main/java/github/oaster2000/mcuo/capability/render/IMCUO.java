@@ -4,23 +4,14 @@ import github.oaster2000.mcuo.capability.ICapability;
 
 public interface IMCUO extends ICapability
 {
-	public void setHelmColorR(float r);
-	public void setHelmColorG(float g);
-	public void setHelmColorB(float b);
 	public float getHelmColorR();
 	public float getHelmColorG();
 	public float getHelmColorB();
 	
-	public void setTorsoColorR(float r);
-	public void setTorsoColorG(float g);
-	public void setTorsoColorB(float b);
 	public float getTorsoColorR();
 	public float getTorsoColorG();
 	public float getTorsoColorB();
 	
-	public void setCapeColorR(float r);
-	public void setCapeColorG(float g);
-	public void setCapeColorB(float b);
 	public float getCapeColorR();
 	public float getCapeColorG();
 	public float getCapeColorB();
@@ -40,5 +31,9 @@ public interface IMCUO extends ICapability
 	
 	public boolean hasCreatedCharacter();
 	public void setCreatedCharacter(boolean created);
+	
+	public void setHelmColor(float r, float g, float b);
+	public void setTorsoColor(float r, float g, float b);
+	public void setCapeColor(float r, float g, float b);
 
 }

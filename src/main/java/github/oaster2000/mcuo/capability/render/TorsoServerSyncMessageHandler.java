@@ -17,9 +17,7 @@ public class TorsoServerSyncMessageHandler implements IMessageHandler<TorsoServe
 		    IMCUO capability = player.getCapability(CapabilityHandler.MCUO, null);
 		    player.getServerWorld().addScheduledTask(() -> {
 		    	if (capability != null) {
-					capability.setTorsoColorR(message.torsoR);
-					capability.setTorsoColorG(message.torsoG);
-					capability.setTorsoColorB(message.torsoB);
+					capability.setTorsoColor(message.torsoR, message.torsoG, message.torsoB);
 					capability.setTorsoType(message.torsoType);
 					
 					capability.setCreatedCharacter(message.createdChar);
