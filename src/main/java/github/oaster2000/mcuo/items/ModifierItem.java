@@ -28,19 +28,10 @@ public class ModifierItem extends BasicItem {
 			if (missions.getCurrentMissionID() == 0) {
 				if (mcuo.getType() == 0) {
 					missions.setCurrentMissionID(1);
-					MCUO.NETWORK.sendToAll(
-							new MissionsServerSyncMessage(missions.getHeroKillCount(), missions.getAntiHeroKillCount(),
-									missions.getVillainKillCount(), missions.getCurrentMissionID()));
 				} else if (mcuo.getType() == 1) {
 					missions.setCurrentMissionID(2);
-					MCUO.NETWORK.sendToAll(
-							new MissionsServerSyncMessage(missions.getHeroKillCount(), missions.getAntiHeroKillCount(),
-									missions.getVillainKillCount(), missions.getCurrentMissionID()));
 				} else if (mcuo.getType() == 2) {
 					missions.setCurrentMissionID(3);
-					MCUO.NETWORK.sendToAll(
-							new MissionsServerSyncMessage(missions.getHeroKillCount(), missions.getAntiHeroKillCount(),
-									missions.getVillainKillCount(), missions.getCurrentMissionID()));
 				}
 			}
 		}

@@ -3,9 +3,7 @@ package github.oaster2000.mcuo.gui;
 import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import github.oaster2000.mcuo.capability.render.CapeServerSyncMessage;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -72,7 +70,6 @@ public class GUICapeChoice extends GuiChoiceBase {
 				mcuo.setCapeType(1);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new CapeServerSyncMessage(mcuo.getCapeColorR(), mcuo.getCapeColorG(), mcuo.getCapeColorB(), mcuo.getCapeType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getCapeType()) {
@@ -86,13 +83,11 @@ public class GUICapeChoice extends GuiChoiceBase {
 				mcuo.setCapeType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new CapeServerSyncMessage(mcuo.getCapeColorR(), mcuo.getCapeColorG(), mcuo.getCapeColorB(), mcuo.getCapeType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
 			mcuo.setCapeColorR((float)(Integer.parseInt(this.torsoColorR.getText())) / 255);
 			mcuo.setCapeColorG((float)(Integer.parseInt(this.torsoColorG.getText())) / 255);
 			mcuo.setCapeColorB((float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new CapeServerSyncMessage(mcuo.getCapeColorR(), mcuo.getCapeColorG(), mcuo.getCapeColorB(), mcuo.getCapeType(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 

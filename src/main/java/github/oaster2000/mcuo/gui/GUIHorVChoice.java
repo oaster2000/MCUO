@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.TypeServerSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,17 +43,14 @@ public class GUIHorVChoice extends GuiChoiceBase {
 			return;
 		case 2:
 			mcuo.setType(0);
-			MCUO.NETWORK.sendToAll(new TypeServerSyncMessage(mcuo.getType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(null);
 			return;
 		case 3:
 			mcuo.setType(1);
-			MCUO.NETWORK.sendToAll(new TypeServerSyncMessage(mcuo.getType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(null);
 			return;
 		case 4:
 			mcuo.setType(2);
-			MCUO.NETWORK.sendToAll(new TypeServerSyncMessage(mcuo.getType(), mcuo.hasCreatedCharacter()));
 			Minecraft.getMinecraft().displayGuiScreen(null);
 			return;
 		}

@@ -34,5 +34,4 @@ public class LevelSystemProvider implements ICapabilityProvider, INBTSerializabl
 	public void deserializeNBT(NBTBase nbt) {
 		CapabilityHandler.LVL_SYS.getStorage().readNBT(CapabilityHandler.LVL_SYS, instance, null, nbt);
 	}
-
 }

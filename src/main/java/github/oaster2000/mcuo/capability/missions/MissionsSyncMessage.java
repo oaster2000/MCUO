@@ -4,41 +4,46 @@ import github.oaster2000.mcuo.capability.CapabilityHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IThreadListener;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MissionsSyncMessage implements IMessage {
 	
-	public MissionsSyncMessage() {
-	}
+	public MissionsSyncMessage() {}
 
-	int hkc;
-	int ahkc;
-	int vkc;
-	int currID;
+	NBTTagCompound tag;
 
-	public MissionsSyncMessage(int hkc, int ahkc, int vkc, int currID) {
-		this.hkc = hkc;
-		this.ahkc = ahkc;
-		this.vkc = vkc;
-		this.currID = currID;
+	public MissionsSyncMessage(Missions mission) {
+		this.tag = mission.serializeNBT();
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		hkc = buf.readInt();
-		ahkc = buf.readInt();
-		vkc = buf.readInt();
-		currID = buf.readInt();
+		this.tag = ByteBufUtils.readTag(buf);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(hkc);
-		buf.writeInt(ahkc);
-		buf.writeInt(vkc);
-		buf.writeInt(currID);
+		ByteBufUtils.writeTag(buf, tag);
+	}
+	
+	public static class Handler implements IMessageHandler<MissionsSyncMessage, IMessage> {
+		@Override
+		public IMessage onMessage(MissionsSyncMessage message, MessageContext ctx) {
+			IThreadListener mainThread = Minecraft.getMinecraft();
+			mainThread.addScheduledTask(() -> {
+				Minecraft mc = Minecraft.getMinecraft();
+				EntityPlayer player = mc.player;
+				if (player.hasCapability(CapabilityHandler.MISSIONS, null)) {
+						((Missions) player.getCapability(CapabilityHandler.MISSIONS, null)).deserializeNBT(message.tag);
+				}
+			});
+
+			return null;
+		}
 	}
 }

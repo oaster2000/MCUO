@@ -35,17 +35,17 @@ public class MCUOCap implements IMCUO
 	
 	public void setHelmColorR(float r) {
 		helmR = r;
-		MCUO.NETWORK.sendToServer(new MCUOSyncMessage(this.helmR, this.helmG, this.helmB, this.helmType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	public void setHelmColorG(float g) {
 		helmG = g;
-		MCUO.NETWORK.sendToServer(new MCUOSyncMessage(this.helmR, this.helmG, this.helmB, this.helmType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	public void setHelmColorB(float b) {
 		helmB = b;
-		MCUO.NETWORK.sendToServer(new MCUOSyncMessage(this.helmR, this.helmG, this.helmB, this.helmType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	public float getHelmColorR() {
@@ -78,19 +78,19 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setCapeColorR(float r) {
 		capeR = r;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.capeR, this.capeG, this.capeB, this.capeType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
 	public void setCapeColorG(float g) {
 		capeG = g;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.capeR, this.capeG, this.capeB, this.capeType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
 	public void setCapeColorB(float b) {
 		capeB = b;
-		MCUO.NETWORK.sendToServer(new CapeSyncMessage(this.capeR, this.capeG, this.capeB, this.capeType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
@@ -111,19 +111,19 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setTorsoColorR(float r) {
 		torsoR = r;
-		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
 	public void setTorsoColorG(float g) {
 		torsoG = g;
-		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
 	public void setTorsoColorB(float b) {
 		torsoB = b;
-		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	public int getHelmType() {
@@ -132,7 +132,7 @@ public class MCUOCap implements IMCUO
 	
 	public void setHelmType(int type) {
 		helmType = type;
-		MCUO.NETWORK.sendToServer(new MCUOSyncMessage(this.helmR, this.helmG, this.helmB, this.helmType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
@@ -143,7 +143,7 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setCreatedCharacter(boolean created) {
 		createdCharacter = created;
-		MCUO.NETWORK.sendToServer(new MCUOSyncMessage(this.helmR, this.helmG, this.helmB, this.helmType, this.createdCharacter));
+		syncToServer();
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setTorsoType(int type) {
 		torsoType = type;
-		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.torsoR, this.torsoG, this.torsoB, this.torsoType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
@@ -165,35 +165,38 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setCapeType(int type) {
 		capeType = type;
-		MCUO.NETWORK.sendToServer(new TorsoSyncMessage(this.capeR, this.capeG, this.capeB, this.capeType, this.createdCharacter));
+		syncToServer();
 	}
 	
 	@Override
-    public ResourceLocation getKey()
-    {
-        return RL;
-    }
+	public ResourceLocation getKey()
+	{
+		return RL;
+	}
 
-    @Override
-    public ICapabilityProvider getProvider()
-    {
-        return new MCUOProvider();
-    }
+	@Override
+	public ICapabilityProvider getProvider()
+	{
+		return new MCUOProvider();
+	}
 
-    @Override
-    public void dataChanged(EntityPlayerMP player)
-    {
-    	MCUO.NETWORK.sendTo(new MCUOSyncMessage(helmR, helmG, helmB, helmType, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new TorsoSyncMessage(torsoR, torsoG, torsoB, torsoType, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new CapeSyncMessage(capeR, capeG, capeB, capeType, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new PowersSyncMessage(powerset, createdCharacter), player);
-    	MCUO.NETWORK.sendTo(new TypeSyncMessage(type, createdCharacter), player);
-    }
+	@Override
+	public void dataChanged(EntityPlayerMP player)
+	{
+		if(!player.world.isRemote) {
+			MCUO.NETWORK.sendTo(new MCUOClientSyncMessage(this), player);
+		}
+	}
+	
+	@Override
+	public void syncToServer() {
+		MCUO.NETWORK.sendToServer(new MCUOServerSyncMessage(this));
+	}
 
-    @Override
-    public NBTTagCompound serializeNBT()
-    {
-    	NBTTagCompound nbt = new NBTTagCompound();
+	@Override
+	public NBTTagCompound serializeNBT()
+	{
+		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setFloat("helmR", getHelmColorR());
 		nbt.setFloat("helmG", getHelmColorG());
 		nbt.setFloat("helmB", getHelmColorB());
@@ -210,33 +213,32 @@ public class MCUOCap implements IMCUO
 		nbt.setInteger("powerset", getPowers());
 		nbt.setInteger("type", getType());
 		return nbt;
-    }
+	}
 
-    @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
-    	setHelmColorR(((NBTTagCompound) nbt).getFloat("helmR"));
-    	setHelmColorG(((NBTTagCompound) nbt).getFloat("helmG"));
-    	setHelmColorB(((NBTTagCompound) nbt).getFloat("helmB"));
-    	setTorsoColorR(((NBTTagCompound) nbt).getFloat("torsoR"));
-    	setTorsoColorG(((NBTTagCompound) nbt).getFloat("torsoG"));
-    	setTorsoColorB(((NBTTagCompound) nbt).getFloat("torsoB"));
-    	setCapeColorR(((NBTTagCompound) nbt).getFloat("capeR"));
-    	setCapeColorG(((NBTTagCompound) nbt).getFloat("capeG"));
-    	setCapeColorB(((NBTTagCompound) nbt).getFloat("capeB"));
-		setHelmType(((NBTTagCompound) nbt).getInteger("helmType"));
-		setTorsoType(((NBTTagCompound) nbt).getInteger("torsoType"));
-		setCapeType(((NBTTagCompound) nbt).getInteger("capeType"));
-		setCreatedCharacter(((NBTTagCompound) nbt).getBoolean("createdCharacter"));
-		setPowers(((NBTTagCompound) nbt).getInteger("powerset"));
-		setType(((NBTTagCompound) nbt).getInteger("type"));
-		
-    }
+	@Override
+	public void deserializeNBT(NBTTagCompound nbt)
+	{
+		this.helmR = nbt.getFloat("helmR");
+		this.helmG = nbt.getFloat("helmG");
+		this.helmB = nbt.getFloat("helmB");
+		this.torsoR = nbt.getFloat("torsoR");
+		this.torsoG = nbt.getFloat("torsoG");
+		this.torsoB = nbt.getFloat("torsoB");
+		this.capeR = nbt.getFloat("capeR");
+		this.capeG = nbt.getFloat("capeG");
+		this.capeB = nbt.getFloat("capeB");
+		this.helmType = nbt.getInteger("helmType");
+		this.torsoType = nbt.getInteger("torsoType");
+		this.capeType = nbt.getInteger("capeType");
+		this.createdCharacter = nbt.getBoolean("createdCharacter");
+		this.powerset = nbt.getInteger("powerset");
+		this.type = nbt.getInteger("type");
+	}
 
 	@Override
 	public void setPowers(int power) {
 		powerset = power;
-		MCUO.NETWORK.sendToServer(new PowersSyncMessage(this.powerset, this.createdCharacter));
+		syncToServer();
 	}
 
 	@Override
@@ -247,7 +249,7 @@ public class MCUOCap implements IMCUO
 	@Override
 	public void setType(int power) {
 		type = power;
-		MCUO.NETWORK.sendToServer(new TypeSyncMessage(this.type, this.createdCharacter));
+		syncToServer();
 	}
 
 	@Override

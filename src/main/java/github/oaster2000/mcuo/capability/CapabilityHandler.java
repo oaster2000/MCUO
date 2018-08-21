@@ -24,26 +24,10 @@ public class CapabilityHandler {
 	public static Capability<IMissions> MISSIONS = null;
 
 	public static void init() {
-		CapabilityManager.INSTANCE.register(IMCUO.class, new Storage<IMCUO>(), new Callable<IMCUO>() {
-			@Override
-			public IMCUO call() throws Exception {
-				return new MCUOCap();
-			}
-		});
+		CapabilityManager.INSTANCE.register(IMCUO.class, new Storage<IMCUO>(), MCUOCap::new);
 
-		CapabilityManager.INSTANCE.register(ILevelSystem.class, new Storage<ILevelSystem>(), new Callable<ILevelSystem>() {
-			@Override
-			public ILevelSystem call() throws Exception {
-				return new LevelSystem();
-			}
-		});
+		CapabilityManager.INSTANCE.register(ILevelSystem.class, new Storage<ILevelSystem>(), LevelSystem::new);
 
-		CapabilityManager.INSTANCE.register(IMissions.class, new Storage<IMissions>(), new Callable<IMissions>() {
-			@Override
-			public IMissions call() throws Exception {
-				return new Missions();
-			}
-		});
-
+		CapabilityManager.INSTANCE.register(IMissions.class, new Storage<IMissions>(), Missions::new);
 	}
 }

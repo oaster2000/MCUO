@@ -1,6 +1,5 @@
 package github.oaster2000.mcuo.capability.missions;
 
-import github.oaster2000.mcuo.capability.render.MCUOSyncMessage;
 import github.oaster2000.mcuo.common.MCUO;
 import github.oaster2000.mcuo.common.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -29,7 +28,14 @@ public class Missions implements IMissions{
 
 	@Override
 	public void dataChanged(EntityPlayerMP player) {
-		MCUO.NETWORK.sendTo(new MissionsSyncMessage(heroKillCount, antiHeroKillCount, villainKillCount, currentMissionID), player);
+		if(!player.world.isRemote) {
+			MCUO.NETWORK.sendTo(new MissionsSyncMessage(this), player);
+		}
+	}
+	
+	@Override
+	public void syncToServer() {
+		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this));
 	}
 
 	@Override
@@ -44,10 +50,10 @@ public class Missions implements IMissions{
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
-		setHKC(((NBTTagCompound) nbt).getInteger("hKC"));
-		setAHKC(((NBTTagCompound) nbt).getInteger("aHKC"));
-		setVKC(((NBTTagCompound) nbt).getInteger("vKC"));
-		setCurrentMissionID(((NBTTagCompound) nbt).getInteger("currID"));
+		this.heroKillCount = nbt.getInteger("hKC");
+		this.antiHeroKillCount = nbt.getInteger("aHKC");
+		this.villainKillCount = nbt.getInteger("vKC");
+		this.currentMissionID = nbt.getInteger("currID");
 	}
 
 	@Override
@@ -58,7 +64,7 @@ public class Missions implements IMissions{
 	@Override
 	public void setHKC(int kc) {
 		this.heroKillCount = kc;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class Missions implements IMissions{
 	@Override
 	public void setAHKC(int kc) {
 		this.antiHeroKillCount = kc;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 	
 	@Override
@@ -80,25 +86,25 @@ public class Missions implements IMissions{
 	@Override
 	public void setVKC(int kc) {
 		this.villainKillCount = kc;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 
 	@Override
 	public void addToHeroKillCount() {
 		this.heroKillCount = heroKillCount + 1;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 
 	@Override
 	public void addToAntiHeroKillCount() {
 		this.antiHeroKillCount = antiHeroKillCount + 1;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 
 	@Override
 	public void addToVillainKillCount() {
 		this.villainKillCount = villainKillCount + 1;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
 
 	@Override
@@ -109,7 +115,6 @@ public class Missions implements IMissions{
 	@Override
 	public void setCurrentMissionID(int newID) {
 		currentMissionID = newID;
-		MCUO.NETWORK.sendToServer(new MissionsSyncMessage(this.heroKillCount, this.antiHeroKillCount, this.villainKillCount, this.currentMissionID));
+		syncToServer();
 	}
-
 }

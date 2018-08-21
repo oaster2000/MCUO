@@ -4,7 +4,9 @@ import github.oaster2000.mcuo.client.render.ItemRenderRegister;
 import github.oaster2000.mcuo.client.render.RenderBlast;
 import github.oaster2000.mcuo.common.CommonProxy;
 import github.oaster2000.mcuo.common.Reference;
-import github.oaster2000.mcuo.entities.*;
+import github.oaster2000.mcuo.entities.EntityFlameBlast;
+import github.oaster2000.mcuo.entities.EntityIceBlast;
+import github.oaster2000.mcuo.keybindings.Keybinds;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -29,6 +31,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
 		super.preInit(e);
+		Keybinds.register();
 		RenderingRegistry.registerEntityRenderingHandler(EntityFlameBlast.class, RenderBlast::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceBlast.class, RenderBlast::new);
 	}
@@ -37,6 +40,8 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		ItemRenderRegister.registerItemRenderer();
+		
+		//MinecraftForge.EVENT_BUS.register(new PlayerRenderHandler());
 	}
 
 	@Override

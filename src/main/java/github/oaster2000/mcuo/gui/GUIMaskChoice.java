@@ -4,13 +4,10 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.MCUOServerSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 public class GUIMaskChoice extends GuiChoiceBase {
 
@@ -74,8 +71,6 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(2);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getHelmType()) {
@@ -92,15 +87,11 @@ public class GUIMaskChoice extends GuiChoiceBase {
 				mcuo.setHelmType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
 			mcuo.setHelmColorR((float) (Integer.parseInt(this.helmColorR.getText())) / 255);
 			mcuo.setHelmColorG((float) (Integer.parseInt(this.helmColorG.getText())) / 255);
 			mcuo.setHelmColorB((float) (Integer.parseInt(this.helmColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new MCUOServerSyncMessage(mcuo.getHelmColorR(), mcuo.getHelmColorG(),
-					mcuo.getHelmColorB(), mcuo.getHelmType(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 

@@ -11,5 +11,5 @@ public interface ICapability extends INBTSerializable<NBTTagCompound>
 	ResourceLocation getKey();
 	ICapabilityProvider getProvider();
 	void dataChanged(EntityPlayerMP player);
-
+	void syncToServer();
 }

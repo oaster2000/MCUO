@@ -57,7 +57,6 @@ public class GuiMissions extends GuiScreen {
 						break;
 				}
 				missions.setCurrentMissionID(1);
-				MCUO.NETWORK.sendToServer(new MissionsServerSyncMessage(missions.getHeroKillCount(), missions.getAntiHeroKillCount(), missions.getVillainKillCount(), missions.getCurrentMissionID()));
 			}
 		}
 	}

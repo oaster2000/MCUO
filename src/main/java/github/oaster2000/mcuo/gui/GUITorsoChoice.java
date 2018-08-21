@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.TorsoServerSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -69,7 +67,6 @@ public class GUITorsoChoice extends GuiChoiceBase {
 				mcuo.setTorsoType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 3:
 			switch (mcuo.getTorsoType()) {
@@ -80,13 +77,11 @@ public class GUITorsoChoice extends GuiChoiceBase {
 				mcuo.setTorsoType(0);
 				break;
 			}
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			return;
 		case 4:
 			mcuo.setTorsoColorR((float)(Integer.parseInt(this.torsoColorR.getText())) / 255);
 			mcuo.setTorsoColorG((float)(Integer.parseInt(this.torsoColorG.getText())) / 255);
 			mcuo.setTorsoColorB((float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
-			MCUO.NETWORK.sendToAll(new TorsoServerSyncMessage(mcuo.getTorsoColorR(), mcuo.getTorsoColorG(), mcuo.getTorsoColorB(), mcuo.getTorsoType(), mcuo.hasCreatedCharacter()));
 			return;
 		}
 
