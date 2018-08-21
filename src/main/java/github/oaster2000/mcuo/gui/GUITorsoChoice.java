@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.TorsoServerSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -83,7 +81,13 @@ public class GUITorsoChoice extends GuiChoiceBase {
 			}
 			return;
 		case 4:
+<<<<<<< HEAD
 			mcuo.setTorsoColor((float)(Integer.parseInt(this.torsoColorR.getText())) / 255, (float)(Integer.parseInt(this.torsoColorG.getText())) / 255, (float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
+=======
+			mcuo.setTorsoColorR((float)(Integer.parseInt(this.torsoColorR.getText())) / 255);
+			mcuo.setTorsoColorG((float)(Integer.parseInt(this.torsoColorG.getText())) / 255);
+			mcuo.setTorsoColorB((float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
+>>>>>>> 7a04a261e3674935c67bef2d921b0afd68daaf66
 			return;
 		}
 

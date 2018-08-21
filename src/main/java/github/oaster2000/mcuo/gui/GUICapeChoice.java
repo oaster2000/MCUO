@@ -3,9 +3,7 @@ package github.oaster2000.mcuo.gui;
 import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
-import github.oaster2000.mcuo.capability.render.CapeServerSyncMessage;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -89,7 +87,13 @@ public class GUICapeChoice extends GuiChoiceBase {
 			}
 			return;
 		case 4:
+<<<<<<< HEAD
 			mcuo.setCapeColor((float)(Integer.parseInt(this.torsoColorR.getText())) / 255, (float)(Integer.parseInt(this.torsoColorG.getText())) / 255, (float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
+=======
+			mcuo.setCapeColorR((float)(Integer.parseInt(this.torsoColorR.getText())) / 255);
+			mcuo.setCapeColorG((float)(Integer.parseInt(this.torsoColorG.getText())) / 255);
+			mcuo.setCapeColorB((float)(Integer.parseInt(this.torsoColorB.getText())) / 255);
+>>>>>>> 7a04a261e3674935c67bef2d921b0afd68daaf66
 			return;
 		}
 

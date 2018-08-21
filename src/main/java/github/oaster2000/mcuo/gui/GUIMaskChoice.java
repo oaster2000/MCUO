@@ -4,13 +4,10 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.MCUOServerSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 public class GUIMaskChoice extends GuiChoiceBase {
 
@@ -94,7 +91,13 @@ public class GUIMaskChoice extends GuiChoiceBase {
 			}
 			return;
 		case 4:
+<<<<<<< HEAD
 			mcuo.setHelmColor((float) (Integer.parseInt(this.helmColorR.getText())) / 255, (float) (Integer.parseInt(this.helmColorG.getText())) / 255, (float) (Integer.parseInt(this.helmColorB.getText())) / 255);
+=======
+			mcuo.setHelmColorR((float) (Integer.parseInt(this.helmColorR.getText())) / 255);
+			mcuo.setHelmColorG((float) (Integer.parseInt(this.helmColorG.getText())) / 255);
+			mcuo.setHelmColorB((float) (Integer.parseInt(this.helmColorB.getText())) / 255);
+>>>>>>> 7a04a261e3674935c67bef2d921b0afd68daaf66
 			return;
 		}
 

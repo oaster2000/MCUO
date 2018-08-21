@@ -1,6 +1,5 @@
 package github.oaster2000.mcuo.capability.levels;
 
-import github.oaster2000.mcuo.capability.render.MCUOSyncMessage;
 import github.oaster2000.mcuo.common.MCUO;
 import github.oaster2000.mcuo.common.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -8,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
-public class LevelSystem implements ILevelSystem{
+public class LevelSystem implements ILevelSystem {
 
 	private int level = 0;
 	private int exp = 0;
@@ -27,7 +26,14 @@ public class LevelSystem implements ILevelSystem{
 
 	@Override
 	public void dataChanged(EntityPlayerMP player) {
-		MCUO.NETWORK.sendTo(new LevelSystemSyncMessage(level, exp), player);
+		if(!player.world.isRemote) {
+			MCUO.NETWORK.sendTo(new LevelSystemSyncMessage(this), player);
+		}
+	}
+	
+	@Override
+	public void syncToServer() {
+		MCUO.NETWORK.sendToServer(new LevelSystemSyncMessage(this));
 	}
 
 	@Override
@@ -40,8 +46,8 @@ public class LevelSystem implements ILevelSystem{
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
-		setLevel(((NBTTagCompound) nbt).getInteger("Level"));
-		setExp(((NBTTagCompound) nbt).getInteger("Xp"));
+		this.level = nbt.getInteger("Level");
+		this.exp = nbt.getInteger("Xp");
 	}
 
 	@Override
@@ -52,7 +58,7 @@ public class LevelSystem implements ILevelSystem{
 	@Override
 	public void setLevel(int lvl) {
 		this.level = lvl;
-		MCUO.NETWORK.sendToServer(new LevelSystemSyncMessage(this.level, this.exp));
+		syncToServer();
 	}
 
 	@Override
@@ -63,7 +69,6 @@ public class LevelSystem implements ILevelSystem{
 	@Override
 	public void setExp(int exp) {
 		this.exp = exp;
-		MCUO.NETWORK.sendToServer(new LevelSystemSyncMessage(this.level, this.exp));
+		syncToServer();
 	}
-
 }

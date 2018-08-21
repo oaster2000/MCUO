@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import github.oaster2000.mcuo.capability.CapabilityHandler;
 import github.oaster2000.mcuo.capability.render.IMCUO;
-import github.oaster2000.mcuo.capability.render.PowersServerSyncMessage;
-import github.oaster2000.mcuo.capability.render.PowersSyncMessage;
-import github.oaster2000.mcuo.common.MCUO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,6 +66,10 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(4);
 				break;
 			}
+<<<<<<< HEAD
+=======
+			System.out.println("Powers: " + mcuo.getPowers());
+>>>>>>> 7a04a261e3674935c67bef2d921b0afd68daaf66
 			return;
 		case 3:
 			switch (mcuo.getPowers()) {
@@ -91,6 +92,10 @@ public class GUIPowerChoice extends GuiChoiceBase {
 				mcuo.setPowers(0);
 				break;
 			}
+<<<<<<< HEAD
+=======
+			System.out.println("Powers: " + mcuo.getPowers());
+>>>>>>> 7a04a261e3674935c67bef2d921b0afd68daaf66
 			return;
 		}
 		try {
